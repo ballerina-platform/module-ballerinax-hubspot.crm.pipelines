@@ -85,8 +85,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src="https://github.com/3nethz/module-ballerinax-hubspot.crm.pipelines/blob/main/docs/resources/install_app.png" alt="Hubspot app creation 1 testacc3" style="width: 70%;">
-
 3. A code will be displayed in the browser. Copy the code.
 
    ```
