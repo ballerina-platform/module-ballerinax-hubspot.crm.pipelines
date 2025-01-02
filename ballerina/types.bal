@@ -72,7 +72,7 @@ public type DeleteCrmV3PipelinesObjecttypePipelineid_archiveQueries record {
 
 public type PublicAuditInfo record {
     string identifier;
-    record {} rawObject?;
+    string rawObject?;    // Changed from record {} to string since the API returns a JSON string
     int:Signed32 fromUserId?;
     int:Signed32 portalId;
     string action;
