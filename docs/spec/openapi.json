@@ -19,7 +19,7 @@
       "x-hubspot-introduction" : "Use the pipelines API to create and manage deal and ticket pipelines. Pipelines enable you to track the status or progress of deals and tickets, such as closing deals and opening support tickets."
     },
     "servers" : [ {
-      "url" : "https://api.hubapi.com"
+      "url" : "https://api.hubapi.com/crm/v3/pipelines"
     } ],
     "tags" : [ {
       "name" : "Pipeline Stage Audits"
@@ -31,8 +31,8 @@
       "name" : "Pipeline Stages"
     } ],
     "paths" : {
-      "/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}/audit" : {
-        "get" : {
+      "/{objectType}/{pipelineId}/stages/{stageId}/audit" : {
+      "get" : {
           "tags" : [ "Pipeline Stage Audits" ],
           "summary" : "Return an audit of all changes to the pipeline stage",
           "description" : "Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.",
@@ -276,7 +276,7 @@
           } ]
         }
       },
-      "/crm/v3/pipelines/{objectType}/{pipelineId}" : {
+      "/{objectType}/{pipelineId}" : {
         "get" : {
           "tags" : [ "Pipelines" ],
           "summary" : "Return a pipeline by ID",
@@ -854,7 +854,7 @@
           } ]
         }
       },
-      "/crm/v3/pipelines/{objectType}/{pipelineId}/audit" : {
+      "/{objectType}/{pipelineId}/audit" : {
         "get" : {
           "tags" : [ "Pipeline Audits" ],
           "summary" : "Return an audit of all changes to the pipeline",
@@ -1091,7 +1091,7 @@
           } ]
         }
       },
-      "/crm/v3/pipelines/{objectType}/{pipelineId}/stages" : {
+      "/{objectType}/{pipelineId}/stages" : {
         "get" : {
           "tags" : [ "Pipeline Stages" ],
           "summary" : "Return all stages of a pipeline",
@@ -1427,7 +1427,7 @@
           } ]
         }
       },
-      "/crm/v3/pipelines/{objectType}" : {
+      "/{objectType}" : {
         "get" : {
           "tags" : [ "Pipelines" ],
           "summary" : "Retrieve all pipelines",
@@ -1745,7 +1745,7 @@
           } ]
         }
       },
-      "/crm/v3/pipelines/{objectType}/{pipelineId}/stages/{stageId}" : {
+      "/{objectType}/{pipelineId}/stages/{stageId}" : {
         "get" : {
           "tags" : [ "Pipeline Stages" ],
           "summary" : "Return a pipeline stage by ID",

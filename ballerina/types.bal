@@ -29,12 +29,6 @@ public type PipelinePatchInput record {
     string label?;
 };
 
-# Represents the Queries record for the operation: patch-/crm/v3/pipelines/{objectType}/{pipelineId}_update
-public type PatchCrmV3PipelinesObjecttypePipelineid_updateQueries record {
-    boolean validateDealStageUsagesBeforeDelete = false;
-    boolean validateReferencesBeforeDelete = false;
-};
-
 # A pipeline stage definition.
 public type PipelineStage record {
     # The date the pipeline stage was created. The stages on default pipelines will have createdAt = 0.
@@ -60,6 +54,12 @@ public type PipelineStage record {
     string updatedAt;
 };
 
+# Represents the Queries record for the operation: patch-/crm/v3/pipelines/{objectType}/{pipelineId}_update
+public type PatchCrmV3PipelinesObjecttypePipelineid_updateQueries record {
+    boolean validateDealStageUsagesBeforeDelete = false;
+    boolean validateReferencesBeforeDelete = false;
+};
+
 public type CollectionResponsePipelineStageNoPaging record {
     PipelineStage[] results;
 };
@@ -72,7 +72,7 @@ public type DeleteCrmV3PipelinesObjecttypePipelineid_archiveQueries record {
 
 public type PublicAuditInfo record {
     string identifier;
-    string rawObject?;    // Changed from record {} to string since the API returns a JSON string
+    string rawObject?;
     int:Signed32 fromUserId?;
     int:Signed32 portalId;
     string action;

@@ -16,7 +16,7 @@ public isolated client class Client {
     # + config - The configurations to be used when initializing the `connector` 
     # + serviceUrl - URL of the target service 
     # + return - An error if connector initialization failed 
-    public isolated function init(ConnectionConfig config, string serviceUrl = "https://api.hubapi.com") returns error? {
+    public isolated function init(ConnectionConfig config, string serviceUrl = "https://api.hubapi.com/crm/v3/pipelines") returns error? {
         http:ClientConfiguration httpClientConfig = {httpVersion: config.httpVersion, timeout: config.timeout, forwarded: config.forwarded, poolConfig: config.poolConfig, compression: config.compression, circuitBreaker: config.circuitBreaker, retryConfig: config.retryConfig, validation: config.validation};
         do {
             if config.http1Settings is ClientHttp1Settings {
@@ -55,8 +55,8 @@ public isolated client class Client {
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - No content 
-    resource isolated function delete crm/v3/pipelines/[string objectType]/[string pipelineId](map<string|string[]> headers = {}, *DeleteCrmV3PipelinesObjecttypePipelineid_archiveQueries queries) returns http:Response|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
+    resource isolated function delete [string objectType]/[string pipelineId](map<string|string[]> headers = {}, *DeleteCrmV3PipelinesObjecttypePipelineid_archiveQueries queries) returns http:Response|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -71,8 +71,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - No content 
-    resource isolated function delete crm/v3/pipelines/[string objectType]/[string pipelineId]/stages/[string stageId](map<string|string[]> headers = {}) returns http:Response|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
+    resource isolated function delete [string objectType]/[string pipelineId]/stages/[string stageId](map<string|string[]> headers = {}) returns http:Response|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -86,8 +86,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function get crm/v3/pipelines/[string objectType](map<string|string[]> headers = {}) returns CollectionResponsePipelineNoPaging|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}`;
+    resource isolated function get [string objectType](map<string|string[]> headers = {}) returns CollectionResponsePipelineNoPaging|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -101,8 +101,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function get crm/v3/pipelines/[string objectType]/[string pipelineId](map<string|string[]> headers = {}) returns Pipeline|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
+    resource isolated function get [string objectType]/[string pipelineId](map<string|string[]> headers = {}) returns Pipeline|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -116,8 +116,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function get crm/v3/pipelines/[string objectType]/[string pipelineId]/audit(map<string|string[]> headers = {}) returns CollectionResponsePublicAuditInfoNoPaging|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/audit`;
+    resource isolated function get [string objectType]/[string pipelineId]/audit(map<string|string[]> headers = {}) returns CollectionResponsePublicAuditInfoNoPaging|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/audit`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -131,8 +131,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function get crm/v3/pipelines/[string objectType]/[string pipelineId]/stages(map<string|string[]> headers = {}) returns CollectionResponsePipelineStageNoPaging|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages`;
+    resource isolated function get [string objectType]/[string pipelineId]/stages(map<string|string[]> headers = {}) returns CollectionResponsePipelineStageNoPaging|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -146,8 +146,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function get crm/v3/pipelines/[string objectType]/[string pipelineId]/stages/[string stageId](map<string|string[]> headers = {}) returns PipelineStage|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
+    resource isolated function get [string objectType]/[string pipelineId]/stages/[string stageId](map<string|string[]> headers = {}) returns PipelineStage|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -161,8 +161,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function get crm/v3/pipelines/[string objectType]/[string pipelineId]/stages/[string stageId]/audit(map<string|string[]> headers = {}) returns CollectionResponsePublicAuditInfoNoPaging|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}/audit`;
+    resource isolated function get [string objectType]/[string pipelineId]/stages/[string stageId]/audit(map<string|string[]> headers = {}) returns CollectionResponsePublicAuditInfoNoPaging|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}/audit`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -177,8 +177,8 @@ public isolated client class Client {
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
-    resource isolated function patch crm/v3/pipelines/[string objectType]/[string pipelineId](PipelinePatchInput payload, map<string|string[]> headers = {}, *PatchCrmV3PipelinesObjecttypePipelineid_updateQueries queries) returns Pipeline|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
+    resource isolated function patch [string objectType]/[string pipelineId](PipelinePatchInput payload, map<string|string[]> headers = {}, *PatchCrmV3PipelinesObjecttypePipelineid_updateQueries queries) returns Pipeline|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -196,8 +196,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function patch crm/v3/pipelines/[string objectType]/[string pipelineId]/stages/[string stageId](PipelineStagePatchInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
+    resource isolated function patch [string objectType]/[string pipelineId]/stages/[string stageId](PipelineStagePatchInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -214,8 +214,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function post crm/v3/pipelines/[string objectType](PipelineInput payload, map<string|string[]> headers = {}) returns Pipeline|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}`;
+    resource isolated function post [string objectType](PipelineInput payload, map<string|string[]> headers = {}) returns Pipeline|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -232,8 +232,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function post crm/v3/pipelines/[string objectType]/[string pipelineId]/stages(PipelineStageInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages`;
+    resource isolated function post [string objectType]/[string pipelineId]/stages(PipelineStageInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -251,8 +251,8 @@ public isolated client class Client {
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
-    resource isolated function put crm/v3/pipelines/[string objectType]/[string pipelineId](PipelineInput payload, map<string|string[]> headers = {}, *PutCrmV3PipelinesObjecttypePipelineid_replaceQueries queries) returns Pipeline|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
+    resource isolated function put [string objectType]/[string pipelineId](PipelineInput payload, map<string|string[]> headers = {}, *PutCrmV3PipelinesObjecttypePipelineid_replaceQueries queries) returns Pipeline|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
@@ -270,8 +270,8 @@ public isolated client class Client {
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
-    resource isolated function put crm/v3/pipelines/[string objectType]/[string pipelineId]/stages/[string stageId](PipelineStageInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
-        string resourcePath = string `/crm/v3/pipelines/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
+    resource isolated function put [string objectType]/[string pipelineId]/stages/[string stageId](PipelineStageInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
+        string resourcePath = string `/${getEncodedUri(objectType)}/${getEncodedUri(pipelineId)}/stages/${getEncodedUri(stageId)}`;
         map<anydata> headerValues = {...headers};
         if self.apiKeyConfig is ApiKeysConfig {
             headerValues["private-app"] = self.apiKeyConfig?.private\-app;
