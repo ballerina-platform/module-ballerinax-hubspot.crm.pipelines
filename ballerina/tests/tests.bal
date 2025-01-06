@@ -1,5 +1,5 @@
 // import ballerina/http;
-import ballerina/io;
+// import ballerina/io;
 import ballerina/oauth2;
 import ballerina/test;
 import ballerina/time;
