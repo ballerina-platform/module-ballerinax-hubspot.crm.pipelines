@@ -1,0 +1,11 @@
+[package]
+org = "thineth"
+name = "main"
+version = "0.1.0"
+distribution = "2201.10.3"
+
+[build-options]
+observabilityIncluded = true
+
+[dependencies]
+"ballerinax/hubspot.crm.pipelines" = { version = "1.0.0" }
