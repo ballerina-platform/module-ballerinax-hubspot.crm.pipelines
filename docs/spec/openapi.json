@@ -2525,8 +2525,7 @@
               "type" : "string"
             },
             "rawObject" : {
-              "type" : "object",
-              "properties" : { }
+              "type" : "string"
             },
             "fromUserId" : {
               "type" : "integer",
