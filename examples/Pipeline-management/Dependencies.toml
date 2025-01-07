@@ -304,7 +304,7 @@ modules = [
 ]
 
 [[package]]
-org = "thineth"
+org = "wso2"
 name = "main"
 version = "0.1.0"
 dependencies = [
@@ -315,6 +315,6 @@ dependencies = [
 	{org = "ballerinax", name = "hubspot.crm.pipelines"}
 ]
 modules = [
-	{org = "thineth", packageName = "main", moduleName = "main"}
+	{org = "wso2", packageName = "main", moduleName = "main"}
 ]
 
