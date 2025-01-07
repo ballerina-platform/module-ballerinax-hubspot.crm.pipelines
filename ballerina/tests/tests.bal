@@ -239,9 +239,7 @@ isolated function testGetPipelineAuditLog() returns error? {
 
     if response is CollectionResponsePublicAuditInfoNoPaging {
         test:assertTrue(response.results.length() > 0, "Pipeline audit should have at least one entry");
-        // io:println(response);
     } else {
-        // io:println(response);
         return response;
     }
 }
@@ -259,13 +257,6 @@ isolated function testGetPipelineStageAuditLog() returns error? {
 
     if response is CollectionResponsePublicAuditInfoNoPaging {
         test:assertTrue(response.results.length() > 0, "Pipeline stage audit should have at least one entry");
-
-        // Additional validations for the first audit entry
-        //test:assertNotEquals(response.results[0].identifier, "", "Identifier should not be empty");
-        //test:assertNotEquals(response.results[0].timestamp, "", "Timestamp should not be empty");
-        //test:assertTrue(response.results[0].portalId > 0, "Portal ID should be positive");
-
-        // io:println(response);
     } else {
         return response;
     }
@@ -296,8 +287,6 @@ isolated function testGetPipelineStageById() returns error? {
         test:assertEquals(response.archived, false, "Stage should not be archived by default");
         test:assertEquals(response.writePermissions, "CRM_PERMISSIONS_ENFORCEMENT",
                 "Write permissions should match expected value");
-
-        //io:println(response);
     } else {
         return response;
     }
@@ -338,8 +327,6 @@ isolated function testGetAllPipelineStages() returns error? {
             test:assertTrue(response.results[0].displayOrder <= response.results[1].displayOrder,
                     "Stages should be in order");
         }
-
-        //io:println(response);
     } else {
         return response;
     }
@@ -549,7 +536,6 @@ isolated function testPatchPipelineStage() returns error? {
         }
         //cleanup the created pipeline
         _ = check hubspot->/[objectType]/[tempPipeline.id].delete();
-        //io:println(response);
     } else {
         return response;
     }
@@ -589,7 +575,6 @@ isolated function testDeletePipelineStage() returns error? {
     PipelineStage tempStage = check hubspot->/[objectType]/[pipelineId]/stages.post(newStage);
 
     // Delete the stage
-
     _ = check hubspot->/[objectType]/[pipelineId]/stages/[tempStage.id].delete();
 
     // Verify deletion by attempting to get the stage
