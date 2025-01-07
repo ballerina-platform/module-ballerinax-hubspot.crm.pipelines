@@ -9,7 +9,7 @@ The `ballerinax/hubspot.crm.pipelines` connector provides practical examples ill
 ## Prerequisites
 
 [//]: # (TODO: Add prerequisites)
-1. Create a huspot application to authenticate the connecter as described in the [Setup guide]()
+1. Create a huspot application to authenticate the connecter as described in the [Setup guide](../ballerina/Package.md)
 2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml` file should look:
 
     ```toml
