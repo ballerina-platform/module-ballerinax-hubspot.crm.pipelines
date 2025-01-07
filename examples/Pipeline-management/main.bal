@@ -13,37 +13,53 @@
 // KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
+import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
 import ballerinax/hubspot.crm.pipelines as pipelines;
 
-// Configuration for HubSpot authentication
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
-configurable string serviceUrl = "https://api.hubapi.com/crm/v3/pipelines";
-
-// Initialize authentication configuration
-pipelines:OAuth2RefreshTokenGrantConfig auth = {
-    clientId: clientId,
-    clientSecret: clientSecret,
-    refreshToken: refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER
-};
-
-pipelines:ConnectionConfig config = {
-    auth: auth
-};
+configurable string pipelineLabel = "Orders Pipeline";
+configurable string objectType = "orders";
 
 public function main() returns error? {
-    final pipelines:Client hubspot = check new (config, serviceUrl);
-    
-    // Create a new orders pipeline
-    string objectType = "orders"; 
-    
-    // Define pipeline stages for order processing
-    pipelines:Pipeline newPipeline = check hubspot->/[objectType].post({
-        "displayOrder": 1,
+    pipelines:OAuth2RefreshTokenGrantConfig auth = {
+        clientId: clientId,
+        clientSecret: clientSecret,
+        refreshToken: refreshToken,
+        credentialBearer: oauth2:POST_BODY_BEARER
+    };
+
+    pipelines:ConnectionConfig config = {auth: auth};
+    pipelines:Client hubspot = check new (config);
+
+    // Create pipeline
+    pipelines:Pipeline createdPipeline = check createPipeline(hubspot, objectType, pipelineLabel);
+    io:println("Created pipeline: ", createdPipeline.label);
+
+    // Update pipeline
+    pipelines:Pipeline updatedPipeline = check updatePipeline(hubspot, objectType, createdPipeline.id, "Updated Orders Pipeline");
+    io:println("\nUpdated pipeline name to: ", updatedPipeline.label);
+
+    // Fetch and log all pipelines
+    pipelines:Pipeline[] pipelineList = check getPipelines(hubspot, objectType);
+    io:println("\nAll pipelines:");
+    foreach var pipeline in pipelineList {
+        io:println("- ", pipeline.label);
+    }
+
+    // Clean up (delete created pipeline)
+    _ = check deletePipeline(hubspot, objectType, createdPipeline.id);
+    io:println("Pipeline deleted: ", updatedPipeline.label);
+}
+
+function createPipeline(pipelines:Client hubspot, string objectType, string label) returns pipelines:Pipeline|error {
+    return hubspot->/[objectType].post({
+        "displayOrder": 0,
+        "label": label,
         "stages": [
             {
                 "label": "Order Received",
@@ -85,35 +101,22 @@ public function main() returns error? {
                     "orderStatus": "DELIVERED"
                 }
             }
-        ],
-        "label": "pipelineName"
+        ]
     });
-    
-    io:println("Created new pipeline: ", newPipeline.label);
-    
-    // Get all pipelines to verify creation
-    pipelines:CollectionResponsePipelineNoPaging searchResult = check hubspot->/[objectType].get();
-    pipelines:Pipeline[] pipelineList = <pipelines:Pipeline[]>searchResult.results;
-    
-    io:println("\nAll active pipelines:");
-    foreach pipelines:Pipeline pipeline in pipelineList {
-        io:println("Pipeline Name: ", pipeline.label);
-        pipelines:PipelineStage[] stages = <pipelines:PipelineStage[]>pipeline.stages;
-        io:println("Stages:");
-        foreach pipelines:PipelineStage stage in stages {
-            io:println("\t- ", stage.label);
-        }
-    }
-    
-    // Update a specific pipeline stage if needed
-    string pipelineId = newPipeline.id;
-    pipelines:Pipeline updatedPipeline = check hubspot->/[objectType]/[pipelineId].patch({
+}
+
+function getPipelines(pipelines:Client hubspot, string objectType) returns pipelines:Pipeline[]|error {
+    pipelines:CollectionResponsePipelineNoPaging response = check hubspot->/[objectType].get();
+    return response.results;
+}
+
+function deletePipeline(pipelines:Client hubspot, string objectType, string pipelineId) returns http:Response|error {
+    return hubspot->/[objectType]/[pipelineId].delete();
+}
+
+function updatePipeline(pipelines:Client hubspot, string objectType, string pipelineId, string newLabel) returns pipelines:Pipeline|error {
+    return hubspot->/[objectType]/[pipelineId].patch({
         displayOrder: 1,
-        label: "Updated Pipeline Name"
+        label: newLabel
     });
-    
-    io:println("\nUpdated pipeline stages for: ", updatedPipeline.label);
-    
-    // Cleanup
-    _ = check hubspot->/[objectType]/[pipelineId].delete();
 }

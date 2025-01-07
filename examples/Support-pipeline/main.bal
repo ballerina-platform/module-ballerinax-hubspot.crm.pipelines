@@ -6,7 +6,7 @@ import ballerinax/hubspot.crm.pipelines as pipelines;
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
-configurable string pipelineLabel = "Support Pipeline2";
+configurable string pipelineLabel = "Support Pipeline";
 configurable string objectType = "tickets";
 
 public function main() returns error? {

@@ -3,12 +3,21 @@
 The `ballerinax/hubspot.crm.pipelines` connector provides practical examples illustrating usage in various scenarios.
 
 [//]: # (TODO: Add examples)
-1. 
-2. 
+1. [Pipeline management] ()
+2. [Support pipeline] ()
 
 ## Prerequisites
 
 [//]: # (TODO: Add prerequisites)
+1. Create a huspot application to authenticate the connecter as described in the [Setup guide]()
+2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml` file should look:
+
+    ```toml
+    clientId = "<Client Id>"
+    clientSecret = "<Client Secret>"
+    refreshToken = "<Refresh Token>"
+    ```
+
 
 ## Running an example
 
