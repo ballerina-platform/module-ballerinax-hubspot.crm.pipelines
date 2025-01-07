@@ -3,8 +3,8 @@
 The `ballerinax/hubspot.crm.pipelines` connector provides practical examples illustrating usage in various scenarios.
 
 [//]: # (TODO: Add examples)
-1. [Pipeline management] ()
-2. [Support pipeline] ()
+1. [Pipeline management] (Pipeline-management/main.bal)
+2. [Support pipeline] (Support-pipeline/main.bal)
 
 ## Prerequisites
 
