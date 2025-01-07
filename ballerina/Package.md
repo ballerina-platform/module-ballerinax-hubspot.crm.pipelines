@@ -1,16 +1,10 @@
 ## Overview
 
-[//]: # "TODO: Add overview mentioning the purpose of the module, supported REST API versions, and other high-level details."
+[HubSpot](https://www.hubspot.com/our-story) is an AI-powered customer relationship management (CRM) platform. 
 
-[HubSpot](https://www.hubspot.com/our-story) is an customer platform with all the software, integrations, and resources users need to connect thier marketing, sales, and customer service.
-
-The `ballerinax/hubspot.crm.pipelines` package offers APIs to connect and interact with [HubSpot API for CRM Pipelines](https://developers.hubspot.com/docs/reference/api/crm/pipelines#pipelines) endpoints, specifically based on [HubSpot CRM Pipelines API v3 OpenAPI spec](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Pipelines/Rollouts/145896/v3/pipelines.json).
-
-Using this API, users can create and manage deal and ticket pipelines. Pipelines enable users to track the status or progress of deals and tickets, such as closing deals and opening support tickets.
+The ballerinax/hubspot.crm.pipelines offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/reference/api/crm/pipelines)  endpoints , specifically based on the [OpenAPI specification for Hubspot Pipelines API v3](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Pipelines/Rollouts/145896/v3/pipelines.json).
 
 ## Setup guide
-
-[//]: # "TODO: Add detailed steps to obtain credentials and configure the module."
 
 To use the `HubSpot CRM Pipelines` connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
 
@@ -126,7 +120,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 ## Quickstart
 
-[//]: # "TODO: Add a quickstart guide to demonstrate basic pipeline operations"
 
 To use the HubSpot CRM Pipelines connector in your Ballerina application, follow these steps:
 
@@ -139,7 +132,9 @@ import ballerinax/hubspot.crm.pipelines as hspipelines;
 
 1. Create a `Config.toml` file and configure the obtained credentials:
 ```toml
-token = "<Access Token>"
+   clientId = "<Client Id>"
+   clientSecret = "<Client Secret>"
+   refreshToken = "<Refresh Token>"
 ```
 2. Create a `hspipelines:ConnectionConfig` with the obtained access token and initialize the connector with it.
 
@@ -151,4 +146,5 @@ Now, utilize the available connector operations.
 
 The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/), covering the following use cases:
 
-[//]: # (TODO: Add examples)
+1. [Pipeline management](../examples/Pipeline-management/main.bal)
+2. [Support pipeline](../examples/Support-pipeline/main.bal)
