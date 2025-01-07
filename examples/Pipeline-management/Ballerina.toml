@@ -1,5 +1,5 @@
 [package]
-org = "thineth"
+org = "wso2"
 name = "main"
 version = "0.1.0"
 distribution = "2201.10.3"
