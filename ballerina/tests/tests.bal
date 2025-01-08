@@ -96,7 +96,7 @@ isolated function testGetPipelineById() returns error? {
     Pipeline response = check hubspot->/[objectType]/[pipelineId].get();
 
     // Verify pipeline ID matches requested ID
-    test:assertTrue(response.id == pipelineId, "Pipeline ID should match the requested ID");
+    test:assertEquaals(response.id, pipelineId, "Pipeline ID should match the requested ID");
 
     // Verify pipeline has at least one stage
     test:assertTrue(response.stages.length() > 0, "Pipeline should have at least one stage");
