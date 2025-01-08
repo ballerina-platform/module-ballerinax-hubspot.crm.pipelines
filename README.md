@@ -10,7 +10,7 @@
 
 [HubSpot](https://www.hubspot.com/our-story) is an AI-powered customer relationship management (CRM) platform. 
 
-The ballerinax/hubspot.crm.pipelines offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/reference/api/crm/pipelines)  endpoints , specifically based on the [OpenAPI specification for Hubspot Pipelines API v3](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Pipelines/Rollouts/145896/v3/pipelines.json).
+The `ballerinax/hubspot.crm.pipelines` offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines)  endpoints, specifically based on the [OpenAPI specification for Hubspot Pipelines API v3](https://developers.hubspot.com/docs/reference/api/overview).
 
 ## Setup guide
 
@@ -26,9 +26,9 @@ If you don't have a HubSpot Developer Account you can sign up to a free account 
 
 Within app developer accounts, you can create developer test accounts to test apps and integrations without affecting any real HubSpot data.
 
-**_These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts._**
+**_These accounts are only for development and testing purposes. In production, you should not use Developer Test Accounts._**
 
-1. Go to Test Account section from the left sidebar.
+1. Go to the Test Account section from the left sidebar.
 
    <img src="https://github.com/3nethz/module-ballerinax-hubspot.crm.pipelines/blob/main/docs/resources/test_acc_1.png" alt="Hubspot developer portal" style="width: 70%;">
 
@@ -52,10 +52,9 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Move to the Auth Tab.
 
-
    <img src="https://github.com/3nethz/module-ballerinax-hubspot.crm.pipelines/blob/main/docs/resources/create_app_2.png" alt="Hubspot app creation 2 testacc3" style="width: 70%;">
 
-2. In the Scopes section, add the nessessory scopes for your app using the "Add new scope" button.
+2. In the Scopes section, click the "Add new scope" button to add the necessary scopes for your app.
 
    `crm.objects.orders.read`
 
