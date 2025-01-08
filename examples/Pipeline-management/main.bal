@@ -42,7 +42,7 @@ public function main() returns error? {
 
     // Update pipeline
     pipelines:Pipeline updatedPipeline = check updatePipeline(hubspot, objectType, createdPipeline.id, "Updated Orders Pipeline");
-    io:println("\nUpdated pipeline name to: ", updatedPipeline.label);
+    io:println("Updated pipeline name to: ", updatedPipeline.label);
 
     // Fetch and log all pipelines
     pipelines:Pipeline[] pipelineList = check getPipelines(hubspot, objectType);
