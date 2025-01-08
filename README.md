@@ -87,10 +87,6 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 3. A code will be displayed in the browser. Copy the code.
 
-   ```
-   Received code: na1-129d-860c-xxxx-xxxx-xxxxxxxxxxxx
-   ```
-
 4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI`> and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
 
    - Linux/macOS
