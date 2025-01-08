@@ -38,19 +38,19 @@ public function main() returns error? {
     io:println("Created pipeline: ", pipeline.label);
 
     pipelines:PipelineStage newStage = check addPipelineStage(hubspot, objectType, pipeline.id);
-    io:println("\nAdded new stage: ", newStage.label);
+    io:println("Added new stage: ", newStage.label);
 
     pipelines:PipelineStage[] stages = check getPipelineStages(hubspot, objectType, pipeline.id);
-    io:println("\nCurrent pipeline stages:");
+    io:println("Current pipeline stages:");
     foreach pipelines:PipelineStage stage in stages {
         io:println(string `- ${stage.label} (${stage.id})`);
     }
 
     pipelines:PipelineStage updatedStage = check updateStageDetails(hubspot, objectType, pipeline.id, newStage.id);
-    io:println("\nUpdated stage: ", updatedStage.label);
+    io:println("Updated stage: ", updatedStage.label);
 
-    check hubspot->/[objectType]/[pipeline.id]/stages/[newStage.id].delete();
-    check hubspot->/[objectType]/[pipeline.id].delete();
+    _ = check hubspot->/[objectType]/[pipeline.id]/stages/[newStage.id].delete();
+    _ = check hubspot->/[objectType]/[pipeline.id].delete();
     io:println("Cleanup completed");
 }
 

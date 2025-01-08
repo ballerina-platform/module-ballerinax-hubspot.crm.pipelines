@@ -65,9 +65,9 @@ isolated function testPostPipeline() returns error? {
     });
 
     // Verify all fields of the created pipeline
-    test:assertTrue(response.label == uniqueLabel, "Pipeline label should match the provided label");
-    test:assertTrue(response.displayOrder == 0, "Display order should be 0");
-    test:assertTrue(response.stages.length() == 2, "Pipeline should have two stages");
+    test:assertEquals(uniqueLabel, response.label, "Pipeline label should match the provided label");
+    test:assertEquals(0, response.displayOrder, "Display order should be 0");
+    test:assertEquals(2, response.stages.length(), "Pipeline should have two stages");
 
     // Cleanup - use the ID directly from the creation response
     _ = check hubspot->/["orders"]/[response.id].delete();
@@ -96,7 +96,7 @@ isolated function testGetPipelineById() returns error? {
     Pipeline response = check hubspot->/[objectType]/[pipelineId].get();
 
     // Verify pipeline ID matches requested ID
-    test:assertEquaals(response.id, pipelineId, "Pipeline ID should match the requested ID");
+    test:assertEquals(response.id, pipelineId, "Pipeline ID should match the requested ID");
 
     // Verify pipeline has at least one stage
     test:assertTrue(response.stages.length() > 0, "Pipeline should have at least one stage");
@@ -190,9 +190,9 @@ isolated function testPatchPipeline() returns error? {
     });
 
     // Verify the patch
-    test:assertTrue(response.label == updatedLabel, "Pipeline label should be updated");
-    test:assertTrue(response.stages.length() == tempPipeline.stages.length(), "Stages should remain unchanged");
-    test:assertTrue(response.displayOrder == tempPipeline.displayOrder, "Display order should remain unchanged");
+    test:assertEquals(updatedLabel, response.label, "Pipeline label should be updated");
+    test:assertEquals(tempPipeline.stages.length(), response.stages.length(), "Stages should remain unchanged");
+    test:assertEquals(tempPipeline.displayOrder, response.displayOrder, "Display order should remain unchanged");
 
     // Cleanup
     _ = check hubspot->/[objectType]/[pipelineId].delete();
@@ -516,38 +516,28 @@ isolated function testPatchPipelineStage() returns error? {
         label: "Done"
     };
 
-    PipelineStage|error response =
-        check hubspot->/[objectType]/[pipelineId]/stages/[stageId].patch(patch);
+    PipelineStage response = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].patch(patch);
 
-    if response is PipelineStage {
-        // Verify the stage was patched with correct data
-        test:assertEquals(response.id, stageId, "Stage ID should remain the same");
-        test:assertEquals(response.label, patch.label, "Stage label should match input");
-        test:assertEquals(response.displayOrder, patch.displayOrder, "Display order should match input");
+    // Verify the stage was patched with correct data
+    test:assertEquals(response.id, stageId, "Stage ID should remain the same");
+    test:assertEquals(response.label, patch.label, "Stage label should match input");
+    test:assertEquals(response.displayOrder, patch.displayOrder, "Display order should match input");
 
-        // Verify metadata
-        test:assertEquals(response.metadata["ticketState"], "CLOSED", "Ticket state should be CLOSED");
+    // Verify metadata
+    test:assertEquals(response.metadata["ticketState"], "CLOSED", "Ticket state should be CLOSED");
 
-        // Verify timestamps and other fields
-        test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be present");
-        test:assertEquals(response.archived, false, "Stage should not be archived");
-        // Verify the stage was actually updated by fetching it again
-        PipelineStage|error verifyResponse =
-            check hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
+    // Verify timestamps and other fields
+    test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be present");
+    test:assertEquals(response.archived, false, "Stage should not be archived");
+    // Verify the stage was actually updated by fetching it again
+    PipelineStage verifyResponse = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
 
-        if verifyResponse is PipelineStage {
-            test:assertEquals(verifyResponse.label, patch.label,
-                    "Verified stage label should match patch");
-            test:assertEquals(verifyResponse.displayOrder, patch.displayOrder,
-                    "Verified display order should match patch");
-        } else {
-            return verifyResponse;
-        }
-        //cleanup the created pipeline
-        _ = check hubspot->/[objectType]/[tempPipeline.id].delete();
-    } else {
-        return response;
-    }
+    test:assertEquals(verifyResponse.label, patch.label,
+            "Verified stage label should match patch");
+    test:assertEquals(verifyResponse.displayOrder, patch.displayOrder,
+            "Verified display order should match patch");
+    //cleanup the created pipeline
+    _ = check hubspot->/[objectType]/[tempPipeline.id].delete();
 }
 
 @test:Config {

@@ -46,13 +46,13 @@ public function main() returns error? {
 
     // Fetch and log all pipelines
     pipelines:Pipeline[] pipelineList = check getPipelines(hubspot, objectType);
-    io:println("\nAll pipelines:");
+    io:println("All pipelines:");
     foreach var pipeline in pipelineList {
         io:println("- ", pipeline.label);
     }
 
     // Clean up (delete created pipeline)
-    check deletePipeline(hubspot, objectType, createdPipeline.id);
+    _ = check deletePipeline(hubspot, objectType, createdPipeline.id);
     io:println("Pipeline deleted: ", updatedPipeline.label);
 }
 
