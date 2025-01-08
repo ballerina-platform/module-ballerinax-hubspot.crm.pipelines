@@ -42,7 +42,7 @@ public function main() returns error? {
     // Fetch and log all pipelines
     pipelines:Pipeline[] pipelineList = check getPipelines(hubspot, objectType);
     io:println("All pipelines:");
-    foreach var pipeline in pipelineList {
+    foreach pipelines:Pipeline pipeline in pipelineList {
         io:println("- ", pipeline.label);
     }
 
