@@ -10,7 +10,7 @@ The OpenAPI specification is obtained from (TODO: Add source link).
 These changes are done in order to improve the overall usability, and as workarounds for some known language limitations.
 
 
-1.Change the `url` property of the servers object
+1. Change the `url` property of the servers object
 - **Original**: 
 ```https://api.hubspot.com```
 
