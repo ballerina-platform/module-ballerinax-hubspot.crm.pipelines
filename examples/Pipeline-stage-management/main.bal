@@ -42,7 +42,7 @@ public function main() returns error? {
 
     pipelines:PipelineStage[] stages = check getPipelineStages(hubspot, objectType, pipeline.id);
     io:println("\nCurrent pipeline stages:");
-    foreach var stage in stages {
+    foreach pipelines:PipelineStage stage in stages {
         io:println("- ", stage.label, " (", stage.id, ")");
     }
 
