@@ -285,26 +285,20 @@ isolated function testGetPipelineStageById() returns error? {
     string stageId = "987806513";
     string objectType = "orders";
 
-    PipelineStage|error response =
-        check hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
+    PipelineStage response = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
+    // Verify basic properties
+    test:assertNotEquals(response.id, "", "Stage ID should not be empty");
+    test:assertNotEquals(response.label, "", "Stage label should not be empty");
+    test:assertTrue(response.displayOrder >= 0, "Display order should be non-negative");
 
-    if response is PipelineStage {
-        // Verify basic properties
-        test:assertNotEquals(response.id, "", "Stage ID should not be empty");
-        test:assertNotEquals(response.label, "", "Stage label should not be empty");
-        test:assertTrue(response.displayOrder >= 0, "Display order should be non-negative");
+    // Verify timestamps are present
+    test:assertNotEquals(response.createdAt, "", "Created timestamp should not be empty");
+    test:assertNotEquals(response.updatedAt, "", "Updated timestamp should not be empty");
 
-        // Verify timestamps are present
-        test:assertNotEquals(response.createdAt, "", "Created timestamp should not be empty");
-        test:assertNotEquals(response.updatedAt, "", "Updated timestamp should not be empty");
-
-        // Verify specific fields match expected values
-        test:assertEquals(response.archived, false, "Stage should not be archived by default");
-        test:assertEquals(response.writePermissions, "CRM_PERMISSIONS_ENFORCEMENT",
-                "Write permissions should match expected value");
-    } else {
-        return response;
-    }
+    // Verify specific fields match expected values
+    test:assertEquals(response.archived, false, "Stage should not be archived by default");
+    test:assertEquals(response.writePermissions, "CRM_PERMISSIONS_ENFORCEMENT",
+            "Write permissions should match expected value");
 }
 
 @test:Config {
