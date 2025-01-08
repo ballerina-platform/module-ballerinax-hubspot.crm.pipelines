@@ -43,7 +43,7 @@ public function main() returns error? {
     pipelines:PipelineStage[] stages = check getPipelineStages(hubspot, objectType, pipeline.id);
     io:println("\nCurrent pipeline stages:");
     foreach pipelines:PipelineStage stage in stages {
-        io:println("- ", stage.label, " (", stage.id, ")");
+        io:println(string `- ${stage.label} (${stage.id})`);
     }
 
     pipelines:PipelineStage updatedStage = check updateStageDetails(hubspot, objectType, pipeline.id, newStage.id);
