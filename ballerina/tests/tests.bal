@@ -18,11 +18,12 @@ import ballerina/oauth2;
 import ballerina/test;
 import ballerina/time;
 
+configurable boolean isLiveServer = ?;
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
 
-configurable string serviceUrl = "https://api.hubapi.com/crm/v3/pipelines";
+configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/pipelines" : "http://localhost:9090/crm/v3/pipelines";
 
 OAuth2RefreshTokenGrantConfig auth = {
     clientId: clientId,
