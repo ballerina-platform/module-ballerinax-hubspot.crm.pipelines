@@ -49,9 +49,9 @@ public function main() returns error? {
     pipelines:PipelineStage updatedStage = check updateStageDetails(hubspot, objectType, pipeline.id, newStage.id);
     io:println("\nUpdated stage: ", updatedStage.label);
 
-    _ = check hubspot->/[objectType]/[pipeline.id]/stages/[newStage.id].delete();
-    _ = check hubspot->/[objectType]/[pipeline.id].delete();
-    io:println("\nCleanup completed");
+    check hubspot->/[objectType]/[pipeline.id]/stages/[newStage.id].delete();
+    check hubspot->/[objectType]/[pipeline.id].delete();
+    io:println("Cleanup completed");
 }
 
 function createSupportPipeline(pipelines:Client hubspot, string objectType) returns pipelines:Pipeline|error {
