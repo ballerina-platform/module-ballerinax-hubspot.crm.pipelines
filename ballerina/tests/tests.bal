@@ -149,10 +149,10 @@ isolated function testPutPipeline() returns error? {
     });
 
     // Verify all updated fields
-    test:assertTrue(response.label == "Updated Pipeline", "Pipeline label should be updated");
-    test:assertTrue(response.stages.length() == 1, "Pipeline should have one stage");
-    test:assertTrue(response.displayOrder == 1, "Display order should be updated");
-    test:assertTrue(response.stages[0].label == "New Stage", "Stage label should be updated");
+    test:assertEquals(response.label, "Updated Pipeline", "Pipeline label should be updated");
+    test:assertEquals(response.stages.length(), 1, "Pipeline should have one stage");
+    test:assertEquals(response.displayOrder, 1, "Display order should be updated");
+    test:assertEquals(response.stages[0].label, "New Stage", "Stage label should be updated");
 
     // Cleanup
     _ = check hubspot->/[objectType]/[pipelineId].delete();
