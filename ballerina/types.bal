@@ -24,9 +24,9 @@ public type PipelineStagePatchInput record {
     # Whether the pipeline is archived.
     boolean archived?;
     # A JSON object containing properties that are not present on all object pipelines.
-    # 
+    #
     # For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-    # 
+    #
     # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
     record {|string...;|} metadata?;
     # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
@@ -54,9 +54,9 @@ public type PipelineStage record {
     # Whether the pipeline is archived.
     boolean archived;
     # A JSON object containing properties that are not present on all object pipelines.
-    # 
+    #
     # For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-    # 
+    #
     # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
     record {|string...;|} metadata?;
     # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
@@ -136,9 +136,9 @@ public type Pipeline record {
 # An input used to create or replace a pipeline stage's definition.
 public type PipelineStageInput record {
     # A JSON object containing properties that are not present on all object pipelines.
-    # 
+    #
     # For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-    # 
+    #
     # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
     record {|string...;|} metadata?;
     # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.

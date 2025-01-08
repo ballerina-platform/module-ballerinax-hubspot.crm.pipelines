@@ -1,6 +1,6 @@
+import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
-import ballerina/http;
 import ballerinax/hubspot.crm.pipelines as pipelines;
 
 configurable string clientId = ?;
@@ -16,7 +16,7 @@ public function main() returns error? {
         refreshToken: refreshToken,
         credentialBearer: oauth2:POST_BODY_BEARER
     };
-    pipelines:ConnectionConfig config = { auth: auth };
+    pipelines:ConnectionConfig config = {auth: auth};
     pipelines:Client hubspot = check new (config);
 
     // Create pipeline
@@ -40,9 +40,9 @@ function createPipeline(pipelines:Client hubspot, string objectType, string labe
         displayOrder: 0,
         label: label,
         stages: [
-            { label: "Submitted", displayOrder: 0, metadata: { "ticketState": "OPEN" } },
-            { label: "Initial Review", displayOrder: 1, metadata: { "ticketState": "OPEN" } },
-            { label: "Solution Delivered", displayOrder: 2, metadata: { "ticketState": "CLOSED" } }
+            {label: "Submitted", displayOrder: 0, metadata: {"ticketState": "OPEN"}},
+            {label: "Initial Review", displayOrder: 1, metadata: {"ticketState": "OPEN"}},
+            {label: "Solution Delivered", displayOrder: 2, metadata: {"ticketState": "CLOSED"}}
         ]
     });
 }

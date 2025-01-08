@@ -9,7 +9,7 @@ This document records the sanitation done on top of the official OpenAPI specifi
 The OpenAPI specification is obtained from (TODO: Add source link).
 These changes are done in order to improve the overall usability, and as workarounds for some known language limitations.
 
-[//]: # (TODO: Add sanitation details)
+
 1.Change the `url` property of the servers object
 - **Original**: 
 ```https://api.hubspot.com```
@@ -26,7 +26,7 @@ These changes are done in order to improve the overall usability, and as workaro
   - **Original**: ```/marketing/v3/pipelines```
   - **Updated**: ```/```
 
-- **Reason**:  This change simplifies the API p aths, making them shorter and more readable.
+- **Reason**:  This change simplifies the API paths, making them shorter and more readable.
 
 3. Updated Data Type for `rawObject` in `PublicAuditInfo`
 
