@@ -52,7 +52,7 @@ public function main() returns error? {
     }
 
     // Clean up (delete created pipeline)
-    _ = check deletePipeline(hubspot, objectType, createdPipeline.id);
+    check deletePipeline(hubspot, objectType, createdPipeline.id);
     io:println("Pipeline deleted: ", updatedPipeline.label);
 }
 
