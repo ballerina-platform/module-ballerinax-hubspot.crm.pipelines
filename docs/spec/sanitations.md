@@ -1,6 +1,6 @@
 _Author_:  Thineth Gamage \
-_Created_: 06.01.2025 \
-_Updated_:  \
+_Created_: 2025/01/06 \
+_Updated_:  2025/01/06 \
 _Edition_: Swan Lake
 
 # Sanitation for OpenAPI specification
