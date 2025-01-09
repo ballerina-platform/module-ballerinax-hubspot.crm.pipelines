@@ -48,9 +48,8 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 2. In the Scopes section, click the "Add new scope" button to add the necessary scopes for your app.
 
-   `crm.objects.orders.read`
-
-   `crm.schemas.orders.write`
+   * `crm.objects.orders.read`
+   * `crm.schemas.orders.write`
    
    ![scope](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/scope.png)
    
