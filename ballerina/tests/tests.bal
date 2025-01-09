@@ -26,13 +26,13 @@ configurable string refreshToken = ?;
 configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/pipelines" : "http://localhost:9090/crm/v3/pipelines";
 
 OAuth2RefreshTokenGrantConfig auth = {
-    clientId: clientId,
-    clientSecret: clientSecret,
-    refreshToken: refreshToken,
+    clientId,
+    clientSecret,
+    refreshToken,
     credentialBearer: oauth2:POST_BODY_BEARER // this line should be added in to when you are going to create auth object.
 };
 
-final Client hubSpotPipelines = check new Client({auth}, serviceUrl);
+final Client hubSpotPipelines = check new ({auth}, serviceUrl);
 
 @test:Config {
     groups: ["live_tests", "mock_tests"]
@@ -249,13 +249,9 @@ isolated function testDeletePipeline() returns error? {
 isolated function testGetPipelineAuditLog() returns error? {
     string pipelineId = "673651319";
 
-    CollectionResponsePublicAuditInfoNoPaging|error response = hubSpotPipelines->/["orders"]/[pipelineId]/audit.get();
+    CollectionResponsePublicAuditInfoNoPaging response = check hubSpotPipelines->/["orders"]/[pipelineId]/audit.get();
 
-    if response is CollectionResponsePublicAuditInfoNoPaging {
-        test:assertTrue(response.results.length() > 0, "Pipeline audit should have at least one entry");
-    } else {
-        return response;
-    }
+    test:assertTrue(response.results.length() > 0, "Pipeline audit should have at least one entry");
 }
 
 @test:Config {
@@ -266,14 +262,9 @@ isolated function testGetPipelineStageAuditLog() returns error? {
     string stageId = "987806513"; // Replace with actual stage ID
     string objectType = "orders";
 
-    CollectionResponsePublicAuditInfoNoPaging|error response =
-        check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId]/audit.get();
+    CollectionResponsePublicAuditInfoNoPaging response = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId]/audit.get();
 
-    if response is CollectionResponsePublicAuditInfoNoPaging {
-        test:assertTrue(response.results.length() > 0, "Pipeline stage audit should have at least one entry");
-    } else {
-        return response;
-    }
+    test:assertTrue(response.results.length() > 0, "Pipeline stage audit should have at least one entry");
 }
 
 @test:Config {
