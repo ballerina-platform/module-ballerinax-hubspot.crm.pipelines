@@ -22,7 +22,7 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 1. Go to the Test Account section from the left sidebar.
 
-   ![Hubspot developer portal](/docs/resources/test_acc_1.png)
+   ![Hubspot developer portal](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_1.png)
 
 2. Click Create developer test account.
 
