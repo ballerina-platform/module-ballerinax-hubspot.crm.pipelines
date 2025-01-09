@@ -4,6 +4,7 @@ The `ballerinax/hubspot.crm.pipelines` connector provides practical examples ill
 
 1. [Pipeline management](Pipeline-management/main.bal)
 2. [Support pipeline](Support-pipeline/main.bal)
+3. [Pipeline stage management](Pipeline-stage-management/main.bal)
 
 ## Prerequisites
 
