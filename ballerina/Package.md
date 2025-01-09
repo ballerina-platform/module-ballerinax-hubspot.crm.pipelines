@@ -138,7 +138,7 @@ Now, utilize the available connector operations.
 
 ## Examples
 
-The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/), covering the following use cases:
+The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples), covering the following use cases:
 
 1. [Pipeline management](../examples/Pipeline-management/main.bal)
 2. [Support pipeline](../examples/Support-pipeline/main.bal)
