@@ -32,8 +32,7 @@ OAuth2RefreshTokenGrantConfig auth = {
     credentialBearer: oauth2:POST_BODY_BEARER // this line should be added in to when you are going to create auth object.
 };
 
-ConnectionConfig config = {auth: auth};
-final Client hubspot = check new Client(config, serviceUrl);
+final Client hubSpotPipelines = check new Client({auth}, serviceUrl);
 
 @test:Config {
     groups: ["live_tests", "mock_tests"]
@@ -43,7 +42,7 @@ isolated function testPostPipeline() returns error? {
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
 
     // Create pipeline
-    Pipeline response = check hubspot->/[objectType].post(payload = {
+    Pipeline response = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -70,7 +69,7 @@ isolated function testPostPipeline() returns error? {
     test:assertEquals(2, response.stages.length(), "Pipeline should have two stages");
 
     // Cleanup - use the ID directly from the creation response
-    _ = check hubspot->/["orders"]/[response.id].delete();
+    _ = check hubSpotPipelines->/[objectType]/[response.id].delete();
 }
 
 @test:Config {
@@ -78,7 +77,7 @@ isolated function testPostPipeline() returns error? {
 }
 isolated function testGetPipelines() returns error? {
     string objectType = "orders";
-    CollectionResponsePipelineNoPaging response = check hubspot->/[objectType].get();
+    CollectionResponsePipelineNoPaging response = check hubSpotPipelines->/[objectType].get();
 
     // Verify response has results
     test:assertTrue(response.results.length() > 0, "Response should contain at least one pipeline");
@@ -93,7 +92,7 @@ isolated function testGetPipelines() returns error? {
 isolated function testGetPipelineById() returns error? {
     string pipelineId = "673651319";
     string objectType = "orders";
-    Pipeline response = check hubspot->/[objectType]/[pipelineId].get();
+    Pipeline response = check hubSpotPipelines->/[objectType]/[pipelineId].get();
 
     // Verify pipeline ID matches requested ID
     test:assertEquals(response.id, pipelineId, "Pipeline ID should match the requested ID");
@@ -110,7 +109,7 @@ isolated function testPutPipeline() returns error? {
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
 
     // Create pipeline
-    Pipeline tempPipeline = check hubspot->/[objectType].post(payload = {
+    Pipeline tempPipeline = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -134,7 +133,7 @@ isolated function testPutPipeline() returns error? {
     string pipelineId = tempPipeline.id; // Store ID directly from creation response
 
     // Update pipeline
-    Pipeline response = check hubspot->/[objectType]/[pipelineId].put(payload = {
+    Pipeline response = check hubSpotPipelines->/[objectType]/[pipelineId].put(payload = {
         "displayOrder": 1,
         "stages": [
             {
@@ -155,7 +154,7 @@ isolated function testPutPipeline() returns error? {
     test:assertEquals(response.stages[0].label, "New Stage", "Stage label should be updated");
 
     // Cleanup
-    _ = check hubspot->/[objectType]/[pipelineId].delete();
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
 }
 
 @test:Config {
@@ -165,7 +164,7 @@ isolated function testPatchPipeline() returns error? {
     // Create a test pipeline first
     string objectType = "orders";
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
-    Pipeline tempPipeline = check hubspot->/[objectType].post(payload = {
+    Pipeline tempPipeline = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -185,7 +184,7 @@ isolated function testPatchPipeline() returns error? {
     string updatedLabel = string `Updated_Pipeline_${time:utcNow()[0]}`;
 
     // Perform the patch operation with unique name
-    Pipeline response = check hubspot->/[objectType]/[pipelineId].patch(payload = {
+    Pipeline response = check hubSpotPipelines->/[objectType]/[pipelineId].patch(payload = {
         "label": updatedLabel
     });
 
@@ -195,7 +194,7 @@ isolated function testPatchPipeline() returns error? {
     test:assertEquals(tempPipeline.displayOrder, response.displayOrder, "Display order should remain unchanged");
 
     // Cleanup
-    _ = check hubspot->/[objectType]/[pipelineId].delete();
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
 }
 
 @test:Config {
@@ -205,7 +204,7 @@ isolated function testDeletePipeline() returns error? {
     // Create a test pipeline first
     string objectType = "orders";
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
-    Pipeline response = check hubspot->/[objectType].post(payload = {
+    Pipeline response = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -229,10 +228,10 @@ isolated function testDeletePipeline() returns error? {
     string pipelineId = response.id;
 
     // Delete the pipeline
-    _ = check hubspot->/[objectType]/[pipelineId].delete();
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
 
     // Verify deletion by attempting to get the pipeline
-    CollectionResponsePipelineNoPaging pipelines = check hubspot->/orders.get();
+    CollectionResponsePipelineNoPaging pipelines = check hubSpotPipelines->/orders.get();
     boolean pipelineExists = false;
     foreach Pipeline pipeline in pipelines.results {
         if pipeline.id == pipelineId {
@@ -250,7 +249,7 @@ isolated function testDeletePipeline() returns error? {
 isolated function testGetPipelineAuditLog() returns error? {
     string pipelineId = "673651319";
 
-    CollectionResponsePublicAuditInfoNoPaging|error response = hubspot->/["orders"]/[pipelineId]/audit.get();
+    CollectionResponsePublicAuditInfoNoPaging|error response = hubSpotPipelines->/["orders"]/[pipelineId]/audit.get();
 
     if response is CollectionResponsePublicAuditInfoNoPaging {
         test:assertTrue(response.results.length() > 0, "Pipeline audit should have at least one entry");
@@ -268,7 +267,7 @@ isolated function testGetPipelineStageAuditLog() returns error? {
     string objectType = "orders";
 
     CollectionResponsePublicAuditInfoNoPaging|error response =
-        check hubspot->/[objectType]/[pipelineId]/stages/[stageId]/audit.get();
+        check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId]/audit.get();
 
     if response is CollectionResponsePublicAuditInfoNoPaging {
         test:assertTrue(response.results.length() > 0, "Pipeline stage audit should have at least one entry");
@@ -285,7 +284,7 @@ isolated function testGetPipelineStageById() returns error? {
     string stageId = "987806513";
     string objectType = "orders";
 
-    PipelineStage response = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
+    PipelineStage response = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].get();
     // Verify basic properties
     test:assertNotEquals(response.id, "", "Stage ID should not be empty");
     test:assertNotEquals(response.label, "", "Stage label should not be empty");
@@ -309,7 +308,7 @@ isolated function testGetAllPipelineStages() returns error? {
     string objectType = "orders";
 
     CollectionResponsePipelineStageNoPaging|error response =
-        check hubspot->/[objectType]/[pipelineId]/stages.get();
+        check hubSpotPipelines->/[objectType]/[pipelineId]/stages.get();
 
     if response is CollectionResponsePipelineStageNoPaging {
         // Verify we have at least one stage
@@ -347,7 +346,7 @@ isolated function testGetAllPipelineStages() returns error? {
 isolated function testCreatePipelineStage() returns error? {
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
     string objectType = "orders";
-    Pipeline tempPipeline = check hubspot->/[objectType].post(payload = {
+    Pipeline tempPipeline = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -373,7 +372,7 @@ isolated function testCreatePipelineStage() returns error? {
     };
 
     PipelineStage|error response =
-        check hubspot->/[objectType]/[pipelineId]/stages.post(newStage);
+        check hubSpotPipelines->/[objectType]/[pipelineId]/stages.post(newStage);
 
     if response is PipelineStage {
         // Verify the stage was created with correct data
@@ -390,8 +389,8 @@ isolated function testCreatePipelineStage() returns error? {
         test:assertEquals(response.archived, false, "New stage should not be archived");
         //cleanup the created stage
         string stageId = response.id;
-        _ = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].delete();
-        _ = check hubspot->/[objectType]/[pipelineId].delete();
+        _ = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].delete();
+        _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
     } else {
         return response;
     }
@@ -404,7 +403,7 @@ isolated function testReplacePipelineStage() returns error? {
     //create a pipeline and a stage
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
     string objectType = "orders";
-    Pipeline tempPipeline = check hubspot->/[objectType].post(payload = {
+    Pipeline tempPipeline = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -427,7 +426,7 @@ isolated function testReplacePipelineStage() returns error? {
     };
 
     string pipelineId = tempPipeline.id;
-    PipelineStage tempStage = check hubspot->/[objectType]/[pipelineId]/stages.post(newStage);
+    PipelineStage tempStage = check hubSpotPipelines->/[objectType]/[pipelineId]/stages.post(newStage);
 
     string stageId = tempStage.id;
 
@@ -441,7 +440,7 @@ isolated function testReplacePipelineStage() returns error? {
     };
 
     PipelineStage|error response =
-        hubspot->/[objectType]/[pipelineId]/stages/[stageId].put(replacementStage);
+        hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].put(replacementStage);
 
     if response is PipelineStage {
         // Verify the stage was replaced with correct data
@@ -458,7 +457,7 @@ isolated function testReplacePipelineStage() returns error? {
 
         // Verify the stage was actually updated by fetching it again
         PipelineStage|error verifyResponse =
-            hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
+            hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].get();
 
         if verifyResponse is PipelineStage {
             test:assertEquals(verifyResponse.label, replacementStage.label,
@@ -469,7 +468,7 @@ isolated function testReplacePipelineStage() returns error? {
             return verifyResponse;
         }
         //cleanup the created pipeline
-        _ = check hubspot->/[objectType]/[tempPipeline.id].delete();
+        _ = check hubSpotPipelines->/[objectType]/[tempPipeline.id].delete();
     } else {
         return response;
     }
@@ -481,7 +480,7 @@ isolated function testReplacePipelineStage() returns error? {
 isolated function testPatchPipelineStage() returns error? {
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
     string objectType = "orders";
-    Pipeline tempPipeline = check hubspot->/[objectType].post(payload = {
+    Pipeline tempPipeline = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -504,7 +503,7 @@ isolated function testPatchPipelineStage() returns error? {
     };
 
     string pipelineId = tempPipeline.id;
-    PipelineStage tempStage = check hubspot->/[objectType]/[pipelineId]/stages.post(newStage);
+    PipelineStage tempStage = check hubSpotPipelines->/[objectType]/[pipelineId]/stages.post(newStage);
 
     string stageId = tempStage.id;
 
@@ -516,7 +515,7 @@ isolated function testPatchPipelineStage() returns error? {
         label: "Done"
     };
 
-    PipelineStage response = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].patch(patch);
+    PipelineStage response = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].patch(patch);
 
     // Verify the stage was patched with correct data
     test:assertEquals(response.id, stageId, "Stage ID should remain the same");
@@ -530,14 +529,14 @@ isolated function testPatchPipelineStage() returns error? {
     test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be present");
     test:assertEquals(response.archived, false, "Stage should not be archived");
     // Verify the stage was actually updated by fetching it again
-    PipelineStage verifyResponse = check hubspot->/[objectType]/[pipelineId]/stages/[stageId].get();
+    PipelineStage verifyResponse = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].get();
 
     test:assertEquals(verifyResponse.label, patch.label,
             "Verified stage label should match patch");
     test:assertEquals(verifyResponse.displayOrder, patch.displayOrder,
             "Verified display order should match patch");
     //cleanup the created pipeline
-    _ = check hubspot->/[objectType]/[tempPipeline.id].delete();
+    _ = check hubSpotPipelines->/[objectType]/[tempPipeline.id].delete();
 }
 
 @test:Config {
@@ -547,7 +546,7 @@ isolated function testDeletePipelineStage() returns error? {
     //create a pipeline and a stage
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
     string objectType = "orders";
-    Pipeline tempPipeline = check hubspot->/[objectType].post(payload = {
+    Pipeline tempPipeline = check hubSpotPipelines->/[objectType].post(payload = {
         "displayOrder": 0,
         "stages": [
             {
@@ -571,13 +570,13 @@ isolated function testDeletePipelineStage() returns error? {
         label: "Done"
     };
 
-    PipelineStage tempStage = check hubspot->/[objectType]/[pipelineId]/stages.post(newStage);
+    PipelineStage tempStage = check hubSpotPipelines->/[objectType]/[pipelineId]/stages.post(newStage);
 
     // Delete the stage
-    _ = check hubspot->/[objectType]/[pipelineId]/stages/[tempStage.id].delete();
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[tempStage.id].delete();
 
     // Verify deletion by attempting to get the stage
-    CollectionResponsePipelineStageNoPaging stages = check hubspot->/[objectType]/[pipelineId]/stages.get();
+    CollectionResponsePipelineStageNoPaging stages = check hubSpotPipelines->/[objectType]/[pipelineId]/stages.get();
     boolean stageExists = false;
     foreach PipelineStage stage in stages.results {
         if stage.id == tempStage.id {
@@ -588,5 +587,5 @@ isolated function testDeletePipelineStage() returns error? {
     test:assertFalse(stageExists, "Stage should be deleted");
 
     //cleanup the created pipeline
-    _ = check hubspot->/[objectType]/[pipelineId].delete();
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
 }

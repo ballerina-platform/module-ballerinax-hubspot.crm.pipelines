@@ -17,7 +17,7 @@
 import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
-import ballerinax/hubspot.crm.pipelines as pipelines;
+import ballerinax/hubspot.crm.pipelines as hspipelines;
 
 configurable string clientId = ?;
 configurable string clientSecret = ?;
@@ -26,32 +26,31 @@ configurable string pipelineLabel = "Support Pipeline";
 configurable string objectType = "tickets";
 
 public function main() returns error? {
-    pipelines:OAuth2RefreshTokenGrantConfig auth = {
+    hspipelines:OAuth2RefreshTokenGrantConfig auth = {
         clientId: clientId,
         clientSecret: clientSecret,
         refreshToken: refreshToken,
         credentialBearer: oauth2:POST_BODY_BEARER
     };
-    pipelines:ConnectionConfig config = {auth: auth};
-    pipelines:Client hubspot = check new (config);
+    hspipelines:Client hubSpotPipelines = check new ({auth});
 
     // Create pipeline
-    pipelines:Pipeline createdPipeline = check createPipeline(hubspot, objectType, pipelineLabel);
+    hspipelines:Pipeline createdPipeline = check createPipeline(hubSpotPipelines, objectType, pipelineLabel);
     io:println("Created pipeline: ", createdPipeline.label);
 
     // Fetch and log all pipelines
-    pipelines:Pipeline[] pipelineList = check getPipelines(hubspot, objectType);
+    hspipelines:Pipeline[] pipelineList = check getPipelines(hubSpotPipelines, objectType);
     io:println("All pipelines:");
-    foreach pipelines:Pipeline pipeline in pipelineList {
+    foreach hspipelines:Pipeline pipeline in pipelineList {
         io:println("- ", pipeline.label);
     }
 
     // Clean up (delete created pipeline)
-    _ = check deletePipeline(hubspot, objectType, createdPipeline.id);
+    _ = check deletePipeline(hubSpotPipelines, objectType, createdPipeline.id);
     io:println("Pipeline deleted: ", createdPipeline.label);
 }
 
-function createPipeline(pipelines:Client hubspot, string objectType, string label) returns pipelines:Pipeline|error {
+function createPipeline(hspipelines:Client hubspot, string objectType, string label) returns hspipelines:Pipeline|error {
     return hubspot->/[objectType].post({
         displayOrder: 0,
         label: label,
@@ -63,11 +62,11 @@ function createPipeline(pipelines:Client hubspot, string objectType, string labe
     });
 }
 
-function getPipelines(pipelines:Client hubspot, string objectType) returns pipelines:Pipeline[]|error {
-    pipelines:CollectionResponsePipelineNoPaging response = check hubspot->/[objectType].get();
+function getPipelines(hspipelines:Client hubspot, string objectType) returns hspipelines:Pipeline[]|error {
+    hspipelines:CollectionResponsePipelineNoPaging response = check hubspot->/[objectType].get();
     return response.results;
 }
 
-function deletePipeline(pipelines:Client hubspot, string objectType, string pipelineId) returns http:Response|error {
+function deletePipeline(hspipelines:Client hubspot, string objectType, string pipelineId) returns http:Response|error {
     return hubspot->/[objectType]/[pipelineId].delete();
 }
