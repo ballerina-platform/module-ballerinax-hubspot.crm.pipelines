@@ -30,21 +30,21 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 1. Go to the Test Account section from the left sidebar.
 
-   ![Hubspot developer portal](/docs/resources/test_acc_1.png)
+   ![Hubspot developer portal](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_1.png)
 
 2. Click Create developer test account.
 
-   ![Hubspot developer testacc](/docs/resources/test_acc_2.png)
+   ![Hubspot developer testacc](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_2.png)
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   ![Hubspot developer testacc3](/docs/resources/test_acc_3.png)
+   ![Hubspot developer testacc3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_3.png)
 
 ### Step 3: Create a HubSpot App under your account.
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
-   ![Hubspot app creation 1](/docs/resources/create_app_1.png)
+   ![Hubspot app creation 1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_1.png)
 
 2. Provide the necessary details, including the app name and description.
 
@@ -52,7 +52,7 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 1. Move to the Auth Tab.
 
-   ![Hubspot app creation 2](/docs/resources/create_app_2.png)
+   ![Hubspot app creation 2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_2.png)
 
 2. In the Scopes section, click the "Add new scope" button to add the necessary scopes for your app.
 
@@ -60,16 +60,17 @@ Within app developer accounts, you can create a [developer test account](https:/
 
    `crm.schemas.orders.write`
    
-   ![scope](/docs/resources/scope.png)
+   ![scope](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/scope.png)
+   
 4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
-   ![Hubspot app creation final](/docs/resources/create_app_final.png)
+   ![Hubspot app creation final](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_final.png)
 
 ### Step 5: Get your Client ID and Client Secret
 
 - Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
 
-   ![Hubspot get credentials](/docs/resources/get_credentials.png)
+   ![Hubspot get credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/get_credentials.png)
 
 ### Step 6: Setup Authentication Flow
 
@@ -148,9 +149,9 @@ Now, utilize the available connector operations.
 
 The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples), covering the following use cases:
 
-1. [Pipeline management](examples/Pipeline-management/main.bal)
-2. [Support pipeline](examples/Support-pipeline/main.bal)
-3. [Pipeline stage management](examples/Pipeline-stage-management/main.bal)
+1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples/Pipeline-management/main.bal)
+2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples/Support-pipeline/main.bal)
+3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples/Pipeline-stage-management/main.bal)
 
 ## Build from the source
 
