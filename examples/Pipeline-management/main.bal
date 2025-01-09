@@ -25,15 +25,16 @@ configurable string refreshToken = ?;
 configurable string pipelineLabel = "Orders Pipeline";
 configurable string objectType = "orders";
 
-public function main() returns error? {
-    hspipelines:OAuth2RefreshTokenGrantConfig auth = {
-        clientId,
-        clientSecret,
-        refreshToken,
-        credentialBearer: oauth2:POST_BODY_BEARER
-    };
+final hspipelines:OAuth2RefreshTokenGrantConfig auth = {
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER
+};
 
-    hspipelines:Client hubSpotPipelines = check new ({auth});
+final hspipelines:Client hubSpotPipelines = check new ({auth});
+
+public function main() returns error? {
 
     // Create pipeline
     hspipelines:Pipeline createdPipeline = check createPipeline(hubSpotPipelines, objectType, pipelineLabel);

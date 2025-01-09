@@ -25,14 +25,16 @@ configurable string refreshToken = ?;
 configurable string pipelineLabel = "Support Pipeline";
 configurable string objectType = "tickets";
 
+final hspipelines:OAuth2RefreshTokenGrantConfig auth = {
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER
+};
+
+final hspipelines:Client hubSpotPipelines = check new ({auth});
+
 public function main() returns error? {
-    hspipelines:OAuth2RefreshTokenGrantConfig auth = {
-        clientId,
-        clientSecret,
-        refreshToken,
-        credentialBearer: oauth2:POST_BODY_BEARER
-    };
-    hspipelines:Client hubSpotPipelines = check new ({auth});
 
     // Create pipeline
     hspipelines:Pipeline createdPipeline = check createPipeline(hubSpotPipelines, objectType, pipelineLabel);

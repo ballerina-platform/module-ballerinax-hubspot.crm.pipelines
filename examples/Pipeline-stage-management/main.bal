@@ -23,15 +23,16 @@ configurable string clientSecret = ?;
 configurable string refreshToken = ?;
 configurable string objectType = "tickets";
 
-public function main() returns error? {
-    hspipelines:OAuth2RefreshTokenGrantConfig auth = {
-        clientId: clientId,
-        clientSecret: clientSecret,
-        refreshToken: refreshToken,
-        credentialBearer: oauth2:POST_BODY_BEARER
-    };
+final hspipelines:OAuth2RefreshTokenGrantConfig auth = {
+    clientId,
+    clientSecret,
+    refreshToken,
+    credentialBearer: oauth2:POST_BODY_BEARER
+};
 
-    hspipelines:Client hubSpotPipelines = check new ({auth});
+final hspipelines:Client hubSpotPipelines = check new ({auth});
+
+public function main() returns error? {
 
     hspipelines:Pipeline pipeline = check createSupportPipeline(hubSpotPipelines, objectType);
     io:println("Created pipeline: ", pipeline.label);
