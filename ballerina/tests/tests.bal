@@ -298,36 +298,32 @@ isolated function testGetAllPipelineStages() returns error? {
     string pipelineId = "673651319";
     string objectType = "orders";
 
-    CollectionResponsePipelineStageNoPaging|error response =
+    CollectionResponsePipelineStageNoPaging response =
         check hubSpotPipelines->/[objectType]/[pipelineId]/stages.get();
 
-    if response is CollectionResponsePipelineStageNoPaging {
-        // Verify we have at least one stage
-        test:assertTrue(response.results.length() > 0, "Pipeline should have at least one stage");
+    // Verify we have at least one stage
+    test:assertTrue(response.results.length() > 0, "Pipeline should have at least one stage");
 
-        // Test the first stage in the results
-        PipelineStage firstStage = response.results[0];
+    // Test the first stage in the results
+    PipelineStage firstStage = response.results[0];
 
-        // Verify required fields
-        test:assertNotEquals(firstStage.id, "", "Stage ID should not be empty");
-        test:assertNotEquals(firstStage.label, "", "Stage label should not be empty");
-        test:assertTrue(firstStage.displayOrder >= 0, "Display order should be non-negative");
+    // Verify required fields
+    test:assertNotEquals(firstStage.id, "", "Stage ID should not be empty");
+    test:assertNotEquals(firstStage.label, "", "Stage label should not be empty");
+    test:assertTrue(firstStage.displayOrder >= 0, "Display order should be non-negative");
 
-        // Verify timestamps
-        test:assertNotEquals(firstStage.createdAt, "", "Created timestamp should not be empty");
-        test:assertNotEquals(firstStage.updatedAt, "", "Updated timestamp should not be empty");
+    // Verify timestamps
+    test:assertNotEquals(firstStage.createdAt, "", "Created timestamp should not be empty");
+    test:assertNotEquals(firstStage.updatedAt, "", "Updated timestamp should not be empty");
 
-        // Verify standard fields
-        test:assertEquals(firstStage.writePermissions, "CRM_PERMISSIONS_ENFORCEMENT",
-                "Write permissions should match expected value");
+    // Verify standard fields
+    test:assertEquals(firstStage.writePermissions, "CRM_PERMISSIONS_ENFORCEMENT",
+            "Write permissions should match expected value");
 
-        // Verify stages are ordered
-        if response.results.length() > 1 {
-            test:assertTrue(response.results[0].displayOrder <= response.results[1].displayOrder,
-                    "Stages should be in order");
-        }
-    } else {
-        return response;
+    // Verify stages are ordered
+    if response.results.length() > 1 {
+        test:assertTrue(response.results[0].displayOrder <= response.results[1].displayOrder,
+                "Stages should be in order");
     }
 }
 
@@ -362,29 +358,24 @@ isolated function testCreatePipelineStage() returns error? {
         label: "Done"
     };
 
-    PipelineStage|error response =
-        check hubSpotPipelines->/[objectType]/[pipelineId]/stages.post(newStage);
+    PipelineStage response = check hubSpotPipelines->/[objectType]/[pipelineId]/stages.post(newStage);
 
-    if response is PipelineStage {
-        // Verify the stage was created with correct data
-        test:assertNotEquals(response.id, "", "Stage ID should be generated");
-        test:assertEquals(response.label, newStage.label, "Stage label should match input");
-        test:assertEquals(response.displayOrder, newStage.displayOrder, "Display order should match input");
+    // Verify the stage was created with correct data
+    test:assertNotEquals(response.id, "", "Stage ID should be generated");
+    test:assertEquals(response.label, newStage.label, "Stage label should match input");
+    test:assertEquals(response.displayOrder, newStage.displayOrder, "Display order should match input");
 
-        // Verify metadata
-        test:assertEquals(response.metadata["ticketState"], "CLOSED", "Ticket state should be CLOSED");
+    // Verify metadata
+    test:assertEquals(response.metadata["ticketState"], "CLOSED", "Ticket state should be CLOSED");
 
-        // Verify timestamps and other auto-generated fields
-        test:assertNotEquals(response.createdAt, "", "Created timestamp should be set");
-        test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be set");
-        test:assertEquals(response.archived, false, "New stage should not be archived");
-        //cleanup the created stage
-        string stageId = response.id;
-        _ = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].delete();
-        _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
-    } else {
-        return response;
-    }
+    // Verify timestamps and other auto-generated fields
+    test:assertNotEquals(response.createdAt, "", "Created timestamp should be set");
+    test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be set");
+    test:assertEquals(response.archived, false, "New stage should not be archived");
+    //cleanup the created stage
+    string stageId = response.id;
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].delete();
+    _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
 }
 
 @test:Config {
@@ -430,39 +421,30 @@ isolated function testReplacePipelineStage() returns error? {
         label: "Done"
     };
 
-    PipelineStage|error response =
-        hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].put(replacementStage);
+    PipelineStage response = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].put(replacementStage);
 
-    if response is PipelineStage {
-        // Verify the stage was replaced with correct data
-        test:assertEquals(response.id, stageId, "Stage ID should remain the same");
-        test:assertEquals(response.label, replacementStage.label, "Stage label should match input");
-        test:assertEquals(response.displayOrder, replacementStage.displayOrder, "Display order should match input");
+    // Verify the stage was replaced with correct data
+    test:assertEquals(response.id, stageId, "Stage ID should remain the same");
+    test:assertEquals(response.label, replacementStage.label, "Stage label should match input");
+    test:assertEquals(response.displayOrder, replacementStage.displayOrder, "Display order should match input");
 
-        // Verify metadata
-        test:assertEquals(response.metadata["ticketState"], "CLOSED", "Ticket state should be CLOSED");
+    // Verify metadata
+    test:assertEquals(response.metadata["ticketState"], "CLOSED", "Ticket state should be CLOSED");
 
-        // Verify timestamps and other fields
-        test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be present");
-        test:assertEquals(response.archived, false, "Stage should not be archived");
+    // Verify timestamps and other fields
+    test:assertNotEquals(response.updatedAt, "", "Updated timestamp should be present");
+    test:assertEquals(response.archived, false, "Stage should not be archived");
 
-        // Verify the stage was actually updated by fetching it again
-        PipelineStage|error verifyResponse =
-            hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].get();
+    // Verify the stage was actually updated by fetching it again
+    PipelineStage verifyResponse = check hubSpotPipelines->/[objectType]/[pipelineId]/stages/[stageId].get();
 
-        if verifyResponse is PipelineStage {
-            test:assertEquals(verifyResponse.label, replacementStage.label,
-                    "Verified stage label should match replacement");
-            test:assertEquals(verifyResponse.displayOrder, replacementStage.displayOrder,
-                    "Verified display order should match replacement");
-        } else {
-            return verifyResponse;
-        }
-        //cleanup the created pipeline
-        _ = check hubSpotPipelines->/[objectType]/[tempPipeline.id].delete();
-    } else {
-        return response;
-    }
+    test:assertEquals(verifyResponse.label, replacementStage.label,
+            "Verified stage label should match replacement");
+    test:assertEquals(verifyResponse.displayOrder, replacementStage.displayOrder,
+            "Verified display order should match replacement");
+            
+    //cleanup the created pipeline
+    _ = check hubSpotPipelines->/[objectType]/[tempPipeline.id].delete();
 }
 
 @test:Config {
