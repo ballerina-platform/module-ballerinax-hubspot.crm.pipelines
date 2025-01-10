@@ -17,25 +17,37 @@
 import ballerina/oauth2;
 import ballerina/test;
 import ballerina/time;
+import ballerina/os;
 
-configurable boolean isLiveServer = false;
-configurable string clientId = ?;
-configurable string clientSecret = ?;
-configurable string refreshToken = ?;
+final boolean isLiveServer = os:getEnv("IS_LIVE_SERVER") == "true";
+final string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/pipelines" : "http://localhost:9090/crm/v3/pipelines";
 
-configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/pipelines" : "http://localhost:9090/crm/v3/pipelines";
+final string clientId = os:getEnv("HUBSPOT_CLIENT_ID");
+final string clientSecret = os:getEnv("HUBSPOT_CLIENT_SECRET");
+final string refreshToken = os:getEnv("HUBSPOT_REFRESH_TOKEN");
 
-final OAuth2RefreshTokenGrantConfig auth = {
-    clientId,
-    clientSecret,
-    refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER
-};
+final Client hubSpotPipelines = check initClient();
 
-final Client hubSpotPipelines = check new ({auth}, serviceUrl);
+isolated function initClient() returns Client|error {
+    if isLiveServer {
+        OAuth2RefreshTokenGrantConfig auth = {
+            clientId,
+            clientSecret,
+            refreshToken,
+            credentialBearer: oauth2:POST_BODY_BEARER
+        };
+        return check new ({auth}, serviceUrl);
+    }
+    return check new ({
+        auth: {
+            token: "test-token"
+        }
+    }, serviceUrl);
+}
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testPostPipeline() returns error? {
     string objectType = "orders";
@@ -73,7 +85,8 @@ isolated function testPostPipeline() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testGetPipelines() returns error? {
     string objectType = "orders";
@@ -87,7 +100,8 @@ isolated function testGetPipelines() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testGetPipelineById() returns error? {
     string pipelineId = "673651319";
@@ -102,7 +116,8 @@ isolated function testGetPipelineById() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testPutPipeline() returns error? {
     string objectType = "orders";
@@ -158,7 +173,8 @@ isolated function testPutPipeline() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testPatchPipeline() returns error? {
     // Create a test pipeline first
@@ -198,6 +214,7 @@ isolated function testPatchPipeline() returns error? {
 }
 
 @test:Config {
+    enable: isLiveServer,
     groups: ["live_tests", "mock_tests"]
 }
 isolated function testDeletePipeline() returns error? {
@@ -244,7 +261,8 @@ isolated function testDeletePipeline() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testGetPipelineAuditLog() returns error? {
     string pipelineId = "673651319";
@@ -255,7 +273,8 @@ isolated function testGetPipelineAuditLog() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testGetPipelineStageAuditLog() returns error? {
     string pipelineId = "673651319";
@@ -268,7 +287,8 @@ isolated function testGetPipelineStageAuditLog() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testGetPipelineStageById() returns error? {
     string pipelineId = "673651319";
@@ -292,7 +312,8 @@ isolated function testGetPipelineStageById() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testGetAllPipelineStages() returns error? {
     string pipelineId = "673651319";
@@ -328,7 +349,8 @@ isolated function testGetAllPipelineStages() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testCreatePipelineStage() returns error? {
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
@@ -379,7 +401,8 @@ isolated function testCreatePipelineStage() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testReplacePipelineStage() returns error? {
     //create a pipeline and a stage
@@ -448,7 +471,8 @@ isolated function testReplacePipelineStage() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testPatchPipelineStage() returns error? {
     string uniqueLabel = string `Pipeline_${time:utcNow()[0]}`;
@@ -513,7 +537,8 @@ isolated function testPatchPipelineStage() returns error? {
 }
 
 @test:Config {
-    groups: ["live_tests", "mock_tests"]
+    enable: isLiveServer,
+    groups: ["live_tests"]
 }
 isolated function testDeletePipelineStage() returns error? {
     //create a pipeline and a stage
@@ -561,4 +586,48 @@ isolated function testDeletePipelineStage() returns error? {
 
     //cleanup the created pipeline
     _ = check hubSpotPipelines->/[objectType]/[pipelineId].delete();
+}
+
+
+@test:Config {
+    enable: !isLiveServer,
+    groups: ["mock_tests"]
+}
+function testCreatePipeline() returns error? {
+    PipelineInput payload = {
+        label: "Test Pipeline",
+        displayOrder: 1,
+        stages: [
+            {
+                label: "Stage 1",
+                displayOrder: 1,
+                metadata: {
+                    "ticketState": "OPEN"
+                }
+            },
+            {
+                label: "Stage 2",
+                displayOrder: 2,
+                metadata: {
+                    "ticketState": "CLOSED"
+                }
+            }
+        ]
+    };
+    
+    Pipeline response = check hubSpotPipelines->/orders.post(payload);
+    
+    // Check the lable field
+    test:assertEquals(response.label, payload.label);
+}
+
+@test:Config {
+    enable: !isLiveServer,
+    groups: ["mock_tests"]
+}
+function testGetPipeline() returns error? {
+    Pipeline response = check hubSpotPipelines->/orders/pipeline_123;
+    
+    // Check pipeline lable
+    test:assertEquals(response.label, "Sample Pipeline");
 }
