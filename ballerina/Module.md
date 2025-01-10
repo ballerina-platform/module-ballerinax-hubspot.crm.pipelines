@@ -54,7 +54,7 @@ Within app developer accounts, you can create a [developer test account](https:/
    `crm.schemas.orders.write`
    
    ![scope](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/scope.png)
-   
+
 4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
    ![Hubspot app creation final](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_final.png)
@@ -140,9 +140,9 @@ Now, utilize the available connector operations.
 
 ## Examples
 
-The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples), covering the following use cases:
+The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples), covering the following use cases:
 
-1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples/Pipeline-management/main.bal)
-2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples/Support-pipeline/main.bal)
-3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/9a23607e3c2bb8c638e2c41c47b3cdd04562a203/examples/Pipeline-stage-management/main.bal)
+1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-management/main.bal)
+2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Support-pipeline/main.bal)
+3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-stage-management/main.bal)
 
