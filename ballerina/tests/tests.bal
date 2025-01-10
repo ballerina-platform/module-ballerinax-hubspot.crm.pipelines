@@ -18,18 +18,18 @@ import ballerina/oauth2;
 import ballerina/test;
 import ballerina/time;
 
-configurable boolean isLiveServer = ?;
+configurable boolean isLiveServer = false;
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
 
 configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/pipelines" : "http://localhost:9090/crm/v3/pipelines";
 
-OAuth2RefreshTokenGrantConfig auth = {
+final OAuth2RefreshTokenGrantConfig auth = {
     clientId,
     clientSecret,
     refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER // this line should be added in to when you are going to create auth object.
+    credentialBearer: oauth2:POST_BODY_BEARER
 };
 
 final Client hubSpotPipelines = check new ({auth}, serviceUrl);
@@ -442,7 +442,7 @@ isolated function testReplacePipelineStage() returns error? {
             "Verified stage label should match replacement");
     test:assertEquals(verifyResponse.displayOrder, replacementStage.displayOrder,
             "Verified display order should match replacement");
-            
+
     //cleanup the created pipeline
     _ = check hubSpotPipelines->/[objectType]/[tempPipeline.id].delete();
 }
