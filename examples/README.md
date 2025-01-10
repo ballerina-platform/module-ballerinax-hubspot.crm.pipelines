@@ -2,9 +2,9 @@
 
 The `ballerinax/hubspot.crm.pipelines` connector provides practical examples illustrating usage in various scenarios.
 
-1. [Pipeline management](Pipeline-management/main.bal)
-2. [Support pipeline](Support-pipeline/main.bal)
-3. [Pipeline stage management](Pipeline-stage-management/main.bal)
+1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-management/main.bal)
+2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Support-pipeline/main.bal)
+3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-stage-management/main.bal)
 
 ## Prerequisites
 
