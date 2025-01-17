@@ -22,8 +22,6 @@ import ballerinax/hubspot.crm.pipelines as hspipelines;
 configurable string clientId = ?;
 configurable string clientSecret = ?;
 configurable string refreshToken = ?;
-configurable string pipelineLabel = "Orders Pipeline";
-configurable string objectType = "orders";
 
 final hspipelines:OAuth2RefreshTokenGrantConfig auth = {
     clientId,
@@ -36,6 +34,9 @@ final hspipelines:Client hubSpotPipelines = check new ({auth});
 
 public function main() returns error? {
 
+    string pipelineLabel = "Orders Pipeline";
+    string objectType = "orders";
+
     // Create pipeline
     hspipelines:Pipeline createdPipeline = check createPipeline(hubSpotPipelines, objectType, pipelineLabel);
     io:println("Created pipeline: ", createdPipeline.label);
@@ -47,7 +48,7 @@ public function main() returns error? {
     // Fetch and log all pipelines
     hspipelines:Pipeline[] pipelineList = check getPipelines(hubSpotPipelines, objectType);
     io:println("All pipelines:");
-    foreach var pipeline in pipelineList {
+    foreach hspipelines:Pipeline pipeline in pipelineList {
         io:println("- ", pipeline.label);
     }
 
