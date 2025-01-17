@@ -215,7 +215,7 @@ isolated function testPatchPipeline() returns error? {
 
 @test:Config {
     enable: isLiveServer,
-    groups: ["live_tests", "mock_tests"]
+    groups: ["live_tests"]
 }
 isolated function testDeletePipeline() returns error? {
     // Create a test pipeline first
