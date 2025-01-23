@@ -8,9 +8,9 @@
 
 ## Overview
 
-[HubSpot](https://www.hubspot.com) is an AI-powered customer relationship management (CRM) platform. 
+[HubSpot](https://www.hubspot.com/our-story) is an AI-powered customer relationship management (CRM) platform.
 
-The `ballerinax/hubspot.crm.pipelines` offers APIs to connect and interact with the [HubSpot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines) endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api/overview).
+The `ballerinax/hubspot.crm.pipelines` offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines) endpoints, specifically based on the [Hubspot Pipelines REST API](https://developers.hubspot.com/docs/reference/api/overview).
 
 ## Setup guide
 
@@ -40,7 +40,7 @@ Within app developer accounts, you can create a [developer test account](https:/
 
    ![Hubspot developer testacc3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_3.png)
 
-### Step 3: Create a HubSpot App under your account.
+### Step 3: Create a HubSpot App under your account
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
@@ -48,7 +48,7 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 2. Provide the necessary details, including the app name and description.
 
-### Step 4: Configure the Authentication Flow.
+### Step 4: Configure the Authentication Flow
 
 1. Move to the Auth Tab.
 
@@ -56,13 +56,12 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 2. In the Scopes section, click the "Add new scope" button to add the necessary scopes for your app.
 
-   `crm.objects.orders.read`
+   - `crm.objects.orders.read`
+   - `crm.schemas.orders.write`
 
-   `crm.schemas.orders.write`
-   
    ![scope](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/scope.png)
 
-4. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
+3. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
    ![Hubspot app creation final](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_final.png)
 
@@ -82,13 +81,13 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
    https://app.hubspot.com/oauth/authorize?client_id=<YOUR_CLIENT_ID>&scope=<YOUR_SCOPES>&redirect_uri=<YOUR_REDIRECT_URI>
    ```
 
-   Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI>` and `<YOUR_SCOPES>` with your specific value.
+   Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI>`, and `<YOUR_SCOPES>` with your specific value.
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
 3. A code will be displayed in the browser. Copy the code.
 
-4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI`> and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
+4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI>`, and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
 
    - Linux/macOS
 
@@ -127,6 +126,7 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 To use the HubSpot CRM Pipelines connector in your Ballerina application, follow these steps:
 
 ### Step 1: Import the module
+
 ```ballerina
 import ballerinax/hubspot.crm.pipelines as hspipelines;
 ```
@@ -134,11 +134,13 @@ import ballerinax/hubspot.crm.pipelines as hspipelines;
 ### Step 2: Instantiate a new connector
 
 1. Create a `Config.toml` file and configure the obtained credentials:
-```toml
-   clientId = "<Client Id>"
-   clientSecret = "<Client Secret>"
-   refreshToken = "<Refresh Token>"
-```
+
+   ```toml
+      clientId = "<Client Id>"
+      clientSecret = "<Client Secret>"
+      refreshToken = "<Refresh Token>"
+   ```
+
 2. Create a `hspipelines:ConnectionConfig` with the obtained access token and initialize the connector with it.
 
 ### Step 3: Use Connector Operations
@@ -149,9 +151,9 @@ Now, utilize the available connector operations.
 
 The `HubSpot CRM Pipelines` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples), covering the following use cases:
 
-1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-management/main.bal)
-2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Support-pipeline/main.bal)
-3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-stage-management/main.bal)
+1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/pipeline-management/main.bal)
+2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/support-pipeline/main.bal)
+3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/pipeline-stage-management/main.bal)
 
 ## Build from the source
 

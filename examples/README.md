@@ -2,13 +2,13 @@
 
 The `ballerinax/hubspot.crm.pipelines` connector provides practical examples illustrating usage in various scenarios.
 
-1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-management/main.bal)
-2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Support-pipeline/main.bal)
-3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/Pipeline-stage-management/main.bal)
+1. [Pipeline management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/pipeline-management/main.bal)
+2. [Support pipeline](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/support-pipeline/main.bal)
+3. [Pipeline stage management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/tree/main/examples/pipeline-stage-management/main.bal)
 
 ## Prerequisites
 
-1. Create a huspot application to authenticate the connecter as described in the [Setup guide](../ballerina/Package.md)
+1. Create a HubSpot application to authenticate the connecter as described in the [Setup guide](../ballerina/Package.md)
 2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml` file should look:
 
     ```toml
