@@ -19,59 +19,59 @@
 
 import ballerina/http;
 
-# An input used to update some properties on a pipeline definition.
+# An input used to update some properties on a pipeline definition
 public type PipelineStagePatchInput record {
-    # Whether the pipeline is archived.
+    # Whether the pipeline is archived
     boolean archived?;
     # A JSON object containing properties that are not present on all object pipelines.
-    #
+    # 
     # For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-    #
-    # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
+    # 
+    # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`
     record {|string...;|} metadata?;
-    # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
+    # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder?;
-    # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline.
+    # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline
     string label?;
 };
 
-# An input used to update some properties on a pipeline definition.
+# An input used to update some properties on a pipeline definition
 public type PipelinePatchInput record {
-    # Whether the pipeline is archived. This property should only be provided when restoring an archived pipeline. If it's provided in any other call, the request will fail and a `400 Bad Request` will be returned.
+    # Whether the pipeline is archived. This property should only be provided when restoring an archived pipeline. If it's provided in any other call, the request will fail and a `400 Bad Request` will be returned
     boolean archived?;
-    # The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label.
+    # The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder?;
     # A unique label used to organize pipelines in HubSpot's UI
     string label?;
 };
 
-# A pipeline stage definition.
+# A pipeline stage definition
 public type PipelineStage record {
-    # The date the pipeline stage was created. The stages on default pipelines will have createdAt = 0.
+    # The date the pipeline stage was created. The stages on default pipelines will have createdAt = 0
     string createdAt;
-    # The date the pipeline was archived. `archivedAt` will only be present if the pipeline is archived.
+    # The date the pipeline was archived. `archivedAt` will only be present if the pipeline is archived
     string archivedAt?;
-    # Whether the pipeline is archived.
+    # Whether the pipeline is archived
     boolean archived;
     # A JSON object containing properties that are not present on all object pipelines.
-    #
+    # 
     # For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-    #
-    # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
+    # 
+    # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`
     record {|string...;|} metadata?;
-    # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
+    # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder;
     "CRM_PERMISSIONS_ENFORCEMENT"|"READ_ONLY"|"INTERNAL_ONLY" writePermissions?;
-    # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline.
+    # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline
     string label;
-    # A unique identifier generated by HubSpot that can be used to retrieve and update the pipeline stage.
+    # A unique identifier generated by HubSpot that can be used to retrieve and update the pipeline stage
     string id;
-    # The date the pipeline stage was last updated.
+    # The date the pipeline stage was last updated
     string updatedAt;
 };
 
 # Represents the Queries record for the operation: patch-/crm/v3/pipelines/{objectType}/{pipelineId}_update
-public type PatchCrmV3PipelinesObjecttypePipelineid_updateQueries record {
+public type PatchCrmV3PipelinesObjectTypePipelineIdUpdateQueries record {
     boolean validateDealStageUsagesBeforeDelete = false;
     boolean validateReferencesBeforeDelete = false;
 };
@@ -81,7 +81,7 @@ public type CollectionResponsePipelineStageNoPaging record {
 };
 
 # Represents the Queries record for the operation: delete-/crm/v3/pipelines/{objectType}/{pipelineId}_archive
-public type DeleteCrmV3PipelinesObjecttypePipelineid_archiveQueries record {
+public type DeleteCrmV3PipelinesObjectTypePipelineIdArchiveQueries record {
     boolean validateDealStageUsagesBeforeDelete = false;
     boolean validateReferencesBeforeDelete = false;
 };
@@ -96,72 +96,55 @@ public type PublicAuditInfo record {
     string timestamp?;
 };
 
-# Proxy server configurations to be used with the HTTP client endpoint.
-public type ProxyConfig record {|
-    # Host name of the proxy server
-    string host = "";
-    # Proxy server port
-    int port = 0;
-    # Proxy server username
-    string userName = "";
-    # Proxy server password
-    @display {label: "", kind: "password"}
-    string password = "";
-|};
-
 public type CollectionResponsePublicAuditInfoNoPaging record {
     PublicAuditInfo[] results;
 };
 
-# A pipeline definition.
+# Represents the Queries record for the operation: put-/crm/v3/pipelines/{objectType}/{pipelineId}_replace
+public type PutCrmV3PipelinesObjectTypePipelineIdReplaceQueries record {
+    boolean validateDealStageUsagesBeforeDelete = false;
+    boolean validateReferencesBeforeDelete = false;
+};
+
+# A pipeline definition
 public type Pipeline record {
-    # The date the pipeline was created. The default pipelines will have createdAt = 0.
+    # The date the pipeline was created. The default pipelines will have createdAt = 0
     string createdAt;
-    # The date the pipeline was archived. `archivedAt` will only be present if the pipeline is archived.
+    # The date the pipeline was archived. `archivedAt` will only be present if the pipeline is archived
     string archivedAt?;
-    # Whether the pipeline is archived.
+    # Whether the pipeline is archived
     boolean archived;
-    # The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label.
+    # The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder;
-    # The stages associated with the pipeline. They can be retrieved and updated via the pipeline stages endpoints.
+    # The stages associated with the pipeline. They can be retrieved and updated via the pipeline stages endpoints
     PipelineStage[] stages;
     # A unique label used to organize pipelines in HubSpot's UI
     string label;
-    # A unique identifier generated by HubSpot that can be used to retrieve and update the pipeline.
+    # A unique identifier generated by HubSpot that can be used to retrieve and update the pipeline
     string id;
-    # The date the pipeline was last updated.
+    # The date the pipeline was last updated
     string updatedAt;
 };
 
-# An input used to create or replace a pipeline stage's definition.
+# An input used to create or replace a pipeline stage's definition
 public type PipelineStageInput record {
     # A JSON object containing properties that are not present on all object pipelines.
-    #
+    # 
     # For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in increments of 0.1.
-    #
-    # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`.
+    # 
+    # For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`), and represents whether the ticket remains open or has been closed by a member of your Support team. Possible values are `OPEN` or `CLOSED`
     record {|string...;|} metadata?;
-    # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label.
+    # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder;
-    # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline.
+    # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline
     string label;
 };
 
-# Provides settings related to HTTP/1.x protocol.
-public type ClientHttp1Settings record {|
-    # Specifies whether to reuse a connection for multiple requests
-    http:KeepAlive keepAlive = http:KEEPALIVE_AUTO;
-    # The chunking behaviour of the request
-    http:Chunking chunking = http:CHUNKING_AUTO;
-    # Proxy server related options
-    ProxyConfig proxy?;
-|};
-
-# An input used to create or replace a pipeline's definition.
+# An input used to create or replace a pipeline's definition
 public type PipelineInput record {
-    # The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label.
+    # The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder;
-    # Pipeline stage inputs used to create the new or replacement pipeline.
+    # Pipeline stage inputs used to create the new or replacement pipeline
     PipelineStageInput[] stages;
     # A unique label used to organize pipelines in HubSpot's UI
     string label;
@@ -178,16 +161,10 @@ public type OAuth2RefreshTokenGrantConfig record {|
     string refreshUrl = "https://api.hubapi.com/oauth/v1/token";
 |};
 
-# Represents the Queries record for the operation: put-/crm/v3/pipelines/{objectType}/{pipelineId}_replace
-public type PutCrmV3PipelinesObjecttypePipelineid_replaceQueries record {
-    boolean validateDealStageUsagesBeforeDelete = false;
-    boolean validateReferencesBeforeDelete = false;
-};
-
 # Provides API key configurations needed when communicating with a remote HTTP endpoint.
 public type ApiKeysConfig record {|
-    string private\-app\-legacy;
-    string private\-app;
+    string privateAppLegacy;
+    string privateApp;
 |};
 
 # Provides a set of configurations for controlling the behaviours when communicating with a remote HTTP endpoint.
@@ -198,29 +175,38 @@ public type ConnectionConfig record {|
     # The HTTP version understood by the client
     http:HttpVersion httpVersion = http:HTTP_2_0;
     # Configurations related to HTTP/1.x protocol
-    ClientHttp1Settings http1Settings?;
+    http:ClientHttp1Settings http1Settings = {};
     # Configurations related to HTTP/2 protocol
-    http:ClientHttp2Settings http2Settings?;
+    http:ClientHttp2Settings http2Settings = {};
     # The maximum time to wait (in seconds) for a response before closing the connection
-    decimal timeout = 60;
+    decimal timeout = 30;
     # The choice of setting `forwarded`/`x-forwarded` header
     string forwarded = "disable";
+    # Configurations associated with Redirection
+    http:FollowRedirects followRedirects?;
     # Configurations associated with request pooling
     http:PoolConfiguration poolConfig?;
     # HTTP caching related configurations
-    http:CacheConfig cache?;
+    http:CacheConfig cache = {};
     # Specifies the way of handling compression (`accept-encoding`) header
     http:Compression compression = http:COMPRESSION_AUTO;
     # Configurations associated with the behaviour of the Circuit Breaker
     http:CircuitBreakerConfig circuitBreaker?;
     # Configurations associated with retrying
     http:RetryConfig retryConfig?;
+    # Configurations associated with cookies
+    http:CookieConfig cookieConfig?;
     # Configurations associated with inbound response size limits
-    http:ResponseLimitConfigs responseLimits?;
+    http:ResponseLimitConfigs responseLimits = {};
     # SSL/TLS-related options
     http:ClientSecureSocket secureSocket?;
     # Proxy server related options
     http:ProxyConfig proxy?;
+    # Provides settings related to client socket configuration
+    http:ClientSocketConfig socketConfig = {};
     # Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default
     boolean validation = true;
+    # Enables relaxed data binding on the client side. When enabled, `nil` values are treated as optional, 
+    # and absent fields are handled as `nilable` types. Enabled by default.
+    boolean laxDataBinding = true;
 |};
