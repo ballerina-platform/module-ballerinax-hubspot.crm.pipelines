@@ -2,7 +2,14 @@
 
 [HubSpot](https://www.hubspot.com/our-story) is an AI-powered customer relationship management (CRM) platform.
 
-The `ballerinax/hubspot.crm.pipelines` offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines) endpoints, specifically based on the [Hubspot Pipelines REST API](https://developers.hubspot.com/docs/reference/api/overview).
+The HubSpot connector offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines) endpoints, specifically based on the [Hubspot Pipelines REST API](https://developers.hubspot.com/docs/reference/api/overview).
+
+### Key Features
+
+- Create, read, update, and delete deal and ticket pipelines
+- Manage pipeline stages and their order
+- Configure pipeline stage properties and behavior
+- Support for multiple pipeline types
 
 ## Setup guide
 
