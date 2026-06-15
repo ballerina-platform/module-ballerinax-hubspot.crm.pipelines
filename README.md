@@ -2,13 +2,13 @@
 
 [![Build](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/actions/workflows/ci.yml)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-hubspot.crm.pipelines.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/commits/master)
-[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/hubspot.crm.pipelines.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%hubspot.crm.pipelines)
+[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/hubspot.crm.pipelines.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fhubspot.crm.pipelines)
 
 ## Overview
 
 [HubSpot](https://www.hubspot.com/our-story) is an AI-powered customer relationship management (CRM) platform.
 
-The `ballerinax/hubspot.crm.pipelines` offers APIs to connect and interact with the [Hubspot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines) endpoints, specifically based on the [Hubspot Pipelines REST API](https://developers.hubspot.com/docs/reference/api/overview).
+The `ballerinax/hubspot.crm.pipelines` offers APIs to connect and interact with the [HubSpot Pipelines API](https://developers.hubspot.com/docs/guides/api/crm/pipelines) endpoints, specifically based on the [HubSpot Pipelines REST API](https://developers.hubspot.com/docs/reference/api/overview).
 
 ## Setup guide
 
@@ -28,21 +28,21 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 1. Go to the Test Account section from the left sidebar.
 
-   ![Hubspot developer portal](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_1.png)
+   ![HubSpot developer portal](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_1.png)
 
 2. Click Create developer test account.
 
-   ![Hubspot developer testacc](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_2.png)
+   ![HubSpot developer testacc](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_2.png)
 
 3. In the dialogue box, give a name to your test account and click create.
 
-   ![Hubspot developer testacc3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_3.png)
+   ![HubSpot developer testacc3](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/test_acc_3.png)
 
 ### Step 3: Create a HubSpot App under your account
 
 1. In your developer account, navigate to the "Apps" section. Click on "Create App"
 
-   ![Hubspot app creation 1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_1.png)
+   ![HubSpot app creation 1](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_1.png)
 
 2. Provide the necessary details, including the app name and description.
 
@@ -50,7 +50,7 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 1. Move to the Auth Tab.
 
-   ![Hubspot app creation 2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_2.png)
+   ![HubSpot app creation 2](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_2.png)
 
 2. In the Scopes section, click the "Add new scope" button to add the necessary scopes for your app.
 
@@ -61,13 +61,13 @@ Within app developer accounts, you can create a [developer test account](https:/
 
 3. Add your Redirect URI in the relevant section. You can also use localhost addresses for local development purposes. Click Create App.
 
-   ![Hubspot app creation final](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_final.png)
+   ![HubSpot app creation final](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/create_app_final.png)
 
 ### Step 5: Get your Client ID and Client Secret
 
 - Navigate to the Auth section of your app. Make sure to save the provided Client ID and Client Secret.
 
-   ![Hubspot get credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/get_credentials.png)
+   ![HubSpot get credentials](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.crm.pipelines/main/docs/resources/get_credentials.png)
 
 ### Step 6: Setup Authentication Flow
 
