@@ -1,6 +1,6 @@
 _Author_:  Thineth Gamage \
 _Created_: 2025/01/06 \
-_Updated_:  2025/01/06 \
+_Updated_: 2026/06/18 \\
 _Edition_: Swan Lake
 
 # Sanitation for OpenAPI specification
@@ -8,7 +8,6 @@ _Edition_: Swan Lake
 This document records the sanitation done on top of the official OpenAPI specification from HubSpot CRM Pipelines. 
 The OpenAPI specification is obtained from [Hubspot API Reference](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Pipelines/Rollouts/145896/v3/pipelines.json).
 These changes are done in order to improve the overall usability, and as workarounds for some known language limitations.
-
 
 1. Change the `url` property of the servers object
 - **Original**: 

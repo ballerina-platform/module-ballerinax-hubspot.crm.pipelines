@@ -61,6 +61,7 @@ public type PipelineStage record {
     record {|string...;|} metadata?;
     # The order for displaying this pipeline stage. If two pipeline stages have a matching `displayOrder`, they will be sorted alphabetically by label
     int:Signed32 displayOrder;
+    # Controls who can write to this pipeline stage.
     "CRM_PERMISSIONS_ENFORCEMENT"|"READ_ONLY"|"INTERNAL_ONLY" writePermissions?;
     # A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be unique within that pipeline
     string label;
@@ -72,37 +73,55 @@ public type PipelineStage record {
 
 # Represents the Queries record for the operation: patch-/crm/v3/pipelines/{objectType}/{pipelineId}_update
 public type PatchCrmV3PipelinesObjectTypePipelineIdUpdateQueries record {
+    # If true, checks for active deal stage usages before removing stages during the update.
     boolean validateDealStageUsagesBeforeDelete = false;
+    # If true, validates that no records reference removed stages before completing the update.
     boolean validateReferencesBeforeDelete = false;
 };
 
+# A collection of pipeline stages returned without paging metadata.
 public type CollectionResponsePipelineStageNoPaging record {
+    # The list of pipeline stages returned in the response.
     PipelineStage[] results;
 };
 
 # Represents the Queries record for the operation: delete-/crm/v3/pipelines/{objectType}/{pipelineId}_archive
 public type DeleteCrmV3PipelinesObjectTypePipelineIdArchiveQueries record {
+    # If true, checks for active deal stage usages before archiving the pipeline.
     boolean validateDealStageUsagesBeforeDelete = false;
+    # If true, validates that no records reference the pipeline's stages before archiving.
     boolean validateReferencesBeforeDelete = false;
 };
 
+# Audit record capturing a change event on a pipeline or stage.
 public type PublicAuditInfo record {
+    # Unique identifier of the audited pipeline or stage object.
     string identifier;
+    # Serialized snapshot of the object at the time of the audit event.
     string rawObject?;
+    # ID of the user who performed the audited action.
     int:Signed32 fromUserId?;
+    # ID of the HubSpot portal where the action occurred.
     int:Signed32 portalId;
+    # The type of action recorded in the audit entry.
     string action;
+    # Human-readable description of the audited action.
     string message?;
+    # Date and time when the audited action occurred.
     string timestamp?;
 };
 
+# A collection of audit records returned without paging metadata.
 public type CollectionResponsePublicAuditInfoNoPaging record {
+    # The list of audit records returned in the response.
     PublicAuditInfo[] results;
 };
 
 # Represents the Queries record for the operation: put-/crm/v3/pipelines/{objectType}/{pipelineId}_replace
 public type PutCrmV3PipelinesObjectTypePipelineIdReplaceQueries record {
+    # If true, checks for active deal stage usages before removing stages during the replacement.
     boolean validateDealStageUsagesBeforeDelete = false;
+    # If true, validates that no records reference removed stages before completing the replacement.
     boolean validateReferencesBeforeDelete = false;
 };
 
@@ -150,7 +169,9 @@ public type PipelineInput record {
     string label;
 };
 
+# A collection of pipelines returned without paging metadata.
 public type CollectionResponsePipelineNoPaging record {
+    # The list of pipelines returned in the response.
     Pipeline[] results;
 };
 
