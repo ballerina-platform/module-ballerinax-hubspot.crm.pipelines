@@ -20,15 +20,15 @@
 import ballerina/data.jsondata;
 import ballerina/http;
 
-# Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types.
+# Pipelines represent distinct stages in a workflow, like closing a deal or servicing a support ticket. These endpoints provide access to read and modify pipelines in HubSpot. Pipelines support `deals` and `tickets` object types
 # 
 # ## Pipeline ID validation
 # 
-# When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response.
+# When calling endpoints that take pipelineId as a parameter, that ID must correspond to an existing, un-archived pipeline. Otherwise the request will fail with a `404 Not Found` response
 public isolated client class Client {
     final http:Client clientEp;
     final readonly & ApiKeysConfig? apiKeyConfig;
-    # Gets invoked to initialize the `connector`.
+    # Gets invoked to initialize the `connector`
     #
     # + config - The configurations to be used when initializing the `connector` 
     # + serviceUrl - URL of the target service 
@@ -46,9 +46,9 @@ public isolated client class Client {
 
     # Audit all pipeline stage changes
     #
-    # + objectType - The CRM object type (e.g., 'deals' or 'tickets') that the pipeline belongs to.
-    # + stageId - The unique identifier of the pipeline stage whose audit log is being retrieved.
-    # + pipelineId - The unique identifier of the pipeline containing the target stage.
+    # + objectType - The CRM object type (e.g., 'deals' or 'tickets') that the pipeline belongs to
+    # + stageId - The unique identifier of the pipeline stage whose audit log is being retrieved
+    # + pipelineId - The unique identifier of the pipeline containing the target stage
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [string objectType]/[string pipelineId]/stages/[string stageId]/audit(map<string|string[]> headers = {}) returns CollectionResponsePublicAuditInfoNoPaging|error {
@@ -64,8 +64,8 @@ public isolated client class Client {
 
     # Return a pipeline by ID
     #
-    # + objectType - The CRM object type of the pipeline (e.g., `deals` or `tickets`).
-    # + pipelineId - The unique identifier of the pipeline to retrieve. Must reference an existing, unarchived pipeline.
+    # + objectType - The CRM object type of the pipeline (e.g., `deals` or `tickets`)
+    # + pipelineId - The unique identifier of the pipeline to retrieve. Must reference an existing, unarchived pipeline
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [string objectType]/[string pipelineId](map<string|string[]> headers = {}) returns Pipeline|error {
@@ -81,8 +81,8 @@ public isolated client class Client {
 
     # Replace a pipeline
     #
-    # + objectType - The CRM object type of the pipeline to replace (e.g., `deals` or `tickets`).
-    # + pipelineId - The unique identifier of the pipeline to replace. Must reference an existing, unarchived pipeline.
+    # + objectType - The CRM object type of the pipeline to replace (e.g., `deals` or `tickets`)
+    # + pipelineId - The unique identifier of the pipeline to replace. Must reference an existing, unarchived pipeline
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
@@ -103,8 +103,8 @@ public isolated client class Client {
 
     # Delete a pipeline
     #
-    # + objectType - The CRM object type of the pipeline to archive (e.g., `deals` or `tickets`).
-    # + pipelineId - The unique identifier of the pipeline to archive. Must reference an existing, unarchived pipeline.
+    # + objectType - The CRM object type of the pipeline to archive (e.g., `deals` or `tickets`)
+    # + pipelineId - The unique identifier of the pipeline to archive. Must reference an existing, unarchived pipeline
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - No content 
@@ -122,8 +122,8 @@ public isolated client class Client {
 
     # Update a pipeline
     #
-    # + objectType - The CRM object type of the pipeline to update (e.g., `deals` or `tickets`).
-    # + pipelineId - The unique identifier of the pipeline to update. Must reference an existing, unarchived pipeline.
+    # + objectType - The CRM object type of the pipeline to update (e.g., `deals` or `tickets`)
+    # + pipelineId - The unique identifier of the pipeline to update. Must reference an existing, unarchived pipeline
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
@@ -144,8 +144,8 @@ public isolated client class Client {
 
     # Audit all pipeline changes
     #
-    # + objectType - The CRM object type of the pipeline whose audit log is being retrieved.
-    # + pipelineId - The unique identifier of the pipeline whose audit log is being retrieved.
+    # + objectType - The CRM object type of the pipeline whose audit log is being retrieved
+    # + pipelineId - The unique identifier of the pipeline whose audit log is being retrieved
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [string objectType]/[string pipelineId]/audit(map<string|string[]> headers = {}) returns CollectionResponsePublicAuditInfoNoPaging|error {
@@ -161,8 +161,8 @@ public isolated client class Client {
 
     # Return all stages of a pipeline
     #
-    # + objectType - The CRM object type of the pipeline whose stages are being listed.
-    # + pipelineId - The unique identifier of the pipeline whose stages are being listed.
+    # + objectType - The CRM object type of the pipeline whose stages are being listed
+    # + pipelineId - The unique identifier of the pipeline whose stages are being listed
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [string objectType]/[string pipelineId]/stages(map<string|string[]> headers = {}) returns CollectionResponsePipelineStageNoPaging|error {
@@ -178,8 +178,8 @@ public isolated client class Client {
 
     # Create a pipeline stage
     #
-    # + objectType - The CRM object type of the pipeline in which the new stage will be created.
-    # + pipelineId - The unique identifier of the pipeline in which the new stage will be created.
+    # + objectType - The CRM object type of the pipeline in which the new stage will be created
+    # + pipelineId - The unique identifier of the pipeline in which the new stage will be created
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function post [string objectType]/[string pipelineId]/stages(PipelineStageInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
@@ -198,7 +198,7 @@ public isolated client class Client {
 
     # Retrieve all pipelines
     #
-    # + objectType - The CRM object type for which to retrieve pipelines (e.g., 'deals' or 'tickets').
+    # + objectType - The CRM object type for which to retrieve pipelines (e.g., 'deals' or 'tickets')
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [string objectType](map<string|string[]> headers = {}) returns CollectionResponsePipelineNoPaging|error {
@@ -214,7 +214,7 @@ public isolated client class Client {
 
     # Create a pipeline
     #
-    # + objectType - The CRM object type for which to create a pipeline (e.g., 'deals' or 'tickets').
+    # + objectType - The CRM object type for which to create a pipeline (e.g., 'deals' or 'tickets')
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function post [string objectType](PipelineInput payload, map<string|string[]> headers = {}) returns Pipeline|error {
@@ -233,9 +233,9 @@ public isolated client class Client {
 
     # Return a pipeline stage by ID
     #
-    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets').
-    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline.
-    # + stageId - The unique identifier of the pipeline stage to retrieve.
+    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets')
+    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline
+    # + stageId - The unique identifier of the pipeline stage to retrieve
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [string objectType]/[string pipelineId]/stages/[string stageId](map<string|string[]> headers = {}) returns PipelineStage|error {
@@ -251,9 +251,9 @@ public isolated client class Client {
 
     # Replace a pipeline stage
     #
-    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets').
-    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline.
-    # + stageId - The unique identifier of the pipeline stage to replace.
+    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets')
+    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline
+    # + stageId - The unique identifier of the pipeline stage to replace
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function put [string objectType]/[string pipelineId]/stages/[string stageId](PipelineStageInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
@@ -272,9 +272,9 @@ public isolated client class Client {
 
     # Delete a pipeline stage
     #
-    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets').
-    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline.
-    # + stageId - The unique identifier of the pipeline stage to archive.
+    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets')
+    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline
+    # + stageId - The unique identifier of the pipeline stage to archive
     # + headers - Headers to be sent with the request 
     # + return - No content 
     resource isolated function delete [string objectType]/[string pipelineId]/stages/[string stageId](map<string|string[]> headers = {}) returns error? {
@@ -290,9 +290,9 @@ public isolated client class Client {
 
     # Update a pipeline stage
     #
-    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets').
-    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline.
-    # + stageId - The unique identifier of the pipeline stage to update.
+    # + objectType - The CRM object type associated with the pipeline stage (e.g., 'deals' or 'tickets')
+    # + pipelineId - The unique identifier of the pipeline containing the stage. Must reference an existing, unarchived pipeline
+    # + stageId - The unique identifier of the pipeline stage to update
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function patch [string objectType]/[string pipelineId]/stages/[string stageId](PipelineStagePatchInput payload, map<string|string[]> headers = {}) returns PipelineStage|error {
